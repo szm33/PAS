@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Indeks</title>
+</head>
+<table>
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Type</td>
+            <td>Active</td>
+            <form  th:action="@{/users/add}" method="get">
+                <td><input type="submit" value="Create User" /></td>
+            </form>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${users.isEmpty()}">
+        <td colspan="2"> Brak użytkowników </td>
+    </tr>
+    <tr th:each="user: ${users}">
+
+            <td th:text="${user.id}" />
+            <td th:text="${user.name}" />
+            <td th:text="${user.type}" />
+            <td th:text="${user.isActive}" />
+        <form  th:action="@{/users/state/{id}(id=${user.id})}" method="get">
+            <td><input type="submit" value="Change State" /></td>
+        </form>
+        <form  th:action="@{/users/edit/{id}(id=${user.id})}" method="get">
+            <td><input type="submit" value="Edit" /></td>
+        </form>
+    </tr>
+
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Indeks</title>
+</head>
+<body>
+<form action="#" th:action="@{/users/add}" th:object="${user}"
+      method="post">
+    <fieldset>
+        <input type="submit" id="submitButton" th:value="Save">
+<!--        <input type="reset" id="resetButton" name="reset" th:value="Reset"/>-->
+        <table>
+            <thead>
+            <tr>
+                <th> Name</th>
+                <th> Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr >
+                <td><input th:field="${user.name}" /></td>
+                <td><input th:field="${user.type}" /></td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</form>
+</body>
+</html>

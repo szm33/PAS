@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Indeks</title>
+</head>
+<table>
+    <thead>
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Number of Seats</td>
+        <td>Firm</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${trains.isEmpty()}">
+        <td colspan="2"> Brak pociągów </td>
+    </tr>
+    <tr th:each="train: ${trains}">
+        <td th:text="${train.id}" />
+        <td th:text="${train.name}" />
+        <td th:text="${train.seats.size()}" />
+        <td th:text="${train.firm.name}" />
+    </tr>
+
+    </tbody>
+</table>
+</body>
+</html>

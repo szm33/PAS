@@ -9,7 +9,7 @@ import pl.pas.pas.service.TrainService;
 
 import java.util.UUID;
 
-@RequestMapping("/train")
+@RequestMapping("/trains")
 @Controller
 public class TrainController {
 
@@ -32,9 +32,7 @@ public class TrainController {
     @GetMapping
     public String s(Model model){
         model.addAttribute("trains",trainService.getTrains());
-       // model.addAttribute("train",trainService.());
-        //model.addAttribute("test","test1");
-        return "index";
+        return "Train/index";
     }
 
     @DeleteMapping("del/{id}")

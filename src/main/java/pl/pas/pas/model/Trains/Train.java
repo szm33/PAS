@@ -16,7 +16,7 @@ public class Train {
     public Train(@JsonProperty UUID id, @JsonProperty String name, int numberOfSeats, Firm firm) {
         this.id = id;
         this.name = name;
-        this.seats=new ArrayList<Boolean>(Arrays.asList(new Boolean[10]));
+        this.seats=new ArrayList<>(Arrays.asList(new Boolean[10]));
         Collections.fill(this.seats, Boolean.FALSE);
         this.firm = firm;
     }

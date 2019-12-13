@@ -16,6 +16,11 @@ public class User {
         this.isActive = isActive;
     }
 
+    public User(){
+        this.isActive=true;
+        this.id = UUID.randomUUID();
+    }
+
     public String getName() {
         return name;
     }
@@ -40,12 +45,16 @@ public class User {
         this.id = id;
     }
 
-    public boolean isActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(boolean active) {
         isActive = active;
+    }
+
+    public void changeState(){
+        this.isActive = !this.isActive;
     }
 
 
