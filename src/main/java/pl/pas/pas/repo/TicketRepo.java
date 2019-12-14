@@ -35,8 +35,8 @@ public class TicketRepo implements IRepo<Ticket>{
 
         }
 
-        public void update(UUID id, Ticket tupdate){
-            Optional<Ticket> t = getById(id);
+        public void update(Ticket tupdate){
+            Optional<Ticket> t = getById(tupdate.getId());
             if (t.isPresent()){
                 tickets.set(tickets.indexOf(t),tupdate);
             }

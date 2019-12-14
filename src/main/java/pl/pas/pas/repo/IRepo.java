@@ -11,5 +11,5 @@ public interface IRepo<T> {
     Optional<T> getById(UUID id);
     List<T> getAll();
     void delete(UUID id);
-    void update(UUID id, T tupdate);
+    void update(T tupdate);
 }

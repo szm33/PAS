@@ -42,7 +42,7 @@ public class FirmRepo implements IRepo<Firm>{
 
     }
 
-    public void update(UUID id, Firm uupdate){
+    public void update( Firm uupdate){
 
     }
 }

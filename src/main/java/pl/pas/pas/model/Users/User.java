@@ -1,11 +1,21 @@
 package pl.pas.pas.model.Users;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.UUID;
 
 public class User {
 
+    @NotBlank(message = "Name cannot be empty")
+    @Pattern(regexp = "[A-z]*", message = "Invalid Name")
+    @Size(min = 2, max = 20, message = "Name must have between 2-20 letters")
     private String name;
+
+    @NotBlank(message = "Type cannot be empty")
+    @Pattern(regexp = "(Admin)|(Client)|(ResourceManager)", message = "Invalid Type")
     private String type;
+
     private UUID id;
     private boolean isActive;
 

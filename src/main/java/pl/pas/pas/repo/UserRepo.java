@@ -43,10 +43,10 @@ public class UserRepo implements IRepo<User>{
 
     }
 
-    public void update(UUID id, User uupdate){
-        Optional<User> u = getById(id);
+    public void update(User user){
+        Optional<User> u = getById(user.getId());
         if (u.isPresent()){
-            users.set(users.indexOf(u),uupdate);
+            users.set(users.indexOf(u.get()),user);
         }
     }
 }

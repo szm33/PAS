@@ -42,7 +42,7 @@ public class TrainController {
 
     @PutMapping("update/{id}")
     public void updateTrain(@PathVariable UUID id, @RequestBody Train t){
-        trainService.updateTrain(id,t);
+        trainService.updateTrain(t);
     }
 
 }

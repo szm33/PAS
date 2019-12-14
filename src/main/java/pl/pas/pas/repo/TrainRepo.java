@@ -43,8 +43,8 @@ public class TrainRepo implements IRepo<Train> {
 
     }
 
-    public void update(UUID id, Train tupdate){
-        Optional<Train> t = getById(id);
+    public void update( Train tupdate){
+        Optional<Train> t = getById(tupdate.getId());
         if (t.isPresent()){
             trains.set(trains.indexOf(t),tupdate);
         }

@@ -40,6 +40,17 @@ public class UserService {
         return userRepo.getAll();
     }
 
+    public User getUser(UUID id){
+       Optional<User> u = userRepo.getById(id);
+       if(u.isPresent()){
+           return  u.get();
+       }
+       else {
+           return null;
+       }
+
+    }
+
     public void changeState(UUID id){
         Optional<User> u = userRepo.getById(id);
         if(u.isPresent()){
@@ -47,19 +58,30 @@ public class UserService {
         }
     }
 
-    public void updateUser(UUID id, User uupdate){
-        Optional<User> u = userRepo.getById(id);
-        if (u.isPresent()){
-            if(uupdate.getName() !="") {
-                u.get().setName(uupdate.getName());
-            }
-            if(uupdate.getType() != "" ){
-                u.get().setType(uupdate.getType());
-            }
-            u.get().setIsActive(uupdate.getIsActive());
-            userRepo.update(id,u.get());
-        }
+
+    public void updateUser(User user) {
+        userRepo.update(user);
+//        Optional<User> u = userRepo.getById(user.getId());
+//        if (u.isPresent()){
+//            u.get().setName(user.getName());
+//            u.get().setIsActive(user.getIsActive());
+//            u.get().setType(user.getType());
+//            userRepo.update(u.get().getId(),u.get());
+//        }
     }
+    // public void updateUser(UUID id, User uupdate){
+//        Optional<User> u = userRepo.getById(id);
+//        if (u.isPresent()){
+//            if(user.getName() !="") {
+//                u.get().setName(user.getName());
+//            }
+//            if(user.getType() != "" ){
+//                u.get().setType(user.getType());
+//            }
+//            u.get().setIsActive(user.getIsActive());
+//            userRepo.update(id,u.get());
+//        }
+//    }
 //    public void delete(UUID id){
 //        //ustawienie nulla dla alokacji
 //        userRepo.delete(id);

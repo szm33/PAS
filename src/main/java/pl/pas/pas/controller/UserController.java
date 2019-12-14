@@ -3,10 +3,13 @@ package pl.pas.pas.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.pas.pas.model.Users.User;
 import pl.pas.pas.service.UserService;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RequestMapping("/users")
@@ -41,15 +44,30 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public String addUser(@ModelAttribute User user, Model model){
+    public String addUser(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            return "User/create";
+        }
         userService.addUser(user);
         return "redirect:/users";
 
     }
 
     @GetMapping("/edit/{id}")
-    public String editUser(@PathVariable UUID id, Model model){
+    public String editSite(@PathVariable UUID id, Model model){
+//        User u = new User();
+//        u.setId(id);
+//        model.addAttribute("user",u);
+        model.addAttribute("user",userService.getUser(id));
+        return "User/edit";
+    }
+    @PostMapping("/edit/{id}")
+    public String editUser(@PathVariable UUID id, @Valid @ModelAttribute User user, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+           // model.addAttribute("user",new User());
+            return "User/edit";
+        }
+        userService.updateUser(user);
         return "redirect:/users";
-
     }
 }
