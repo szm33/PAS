@@ -7,9 +7,13 @@ import java.util.UUID;
 
 public interface IRepo<T> {
 
-     void add(T t);
+    void add(T t);
+
     Optional<T> getById(UUID id);
+
     List<T> getAll();
-    void delete(UUID id);
-    void update(T tupdate);
+
+    void delete(T t);
+
+    void update(T t);
 }
