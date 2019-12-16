@@ -55,9 +55,6 @@ public class UserController {
 
     @GetMapping("/edit/{id}")
     public String editSite(@PathVariable UUID id, Model model){
-//        User u = new User();
-//        u.setId(id);
-//        model.addAttribute("user",u);
         model.addAttribute("user",userService.getUser(id));
         return "User/edit";
     }

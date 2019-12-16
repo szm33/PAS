@@ -25,8 +25,13 @@
         <td th:text="${train.name}" />
         <td th:text="${train.seats}" />
         <td th:text="${train.firm.name}" />
+        <form  th:action="@{/trains/edit/{id}(id=${train.id})}" method="get">
+            <td><input type="submit" value="Edit" /></td>
+        </form>
+        <form  th:action="@{/trains/delete/{id}(id=${train.id})}" method="get">
+            <td><input type="submit" value="Delete" /></td>
+        </form>
     </tr>
-
     </tbody>
 </table>
 </body>

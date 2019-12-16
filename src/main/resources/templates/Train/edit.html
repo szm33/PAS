@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" >
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Indeks</title>
 </head>
 <body>
-
+<form action="#" th:action="@{/trains/edit/{id}(id=${train.id})}" th:object="${train}"
+      method="post">
+    <fieldset>
+        <input type="submit" id="submitButton" th:value="Save">
+        <table>
+            <thead>
+            <tr>
+                <th> Name</th>
+                <th> Firm</th>
+                <th> Number of seats</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr >
+                <td><input th:field="*{name}" /></td>
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+                <td>
+                    <select  th:field="${train.firm.name}">
+                        <option th:each="firm : ${firms}" th:value="${firm.name}"  th:text="${firm.name}"></option>
+                    </select>
+                </td>
+                <td><input th:field="*{seats}" pattern="[1-9][0-9]*" title="There must be number grater than 0"/></td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</form>
 </body>
 </html>

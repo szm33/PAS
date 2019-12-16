@@ -43,7 +43,10 @@ public class TrainRepo implements IRepo<Train> {
     public void update(Train t) {
         Optional<Train> train = getById(t.getId());
         if (train.isPresent()) {
-            trains.set(trains.indexOf(train), t);
+            train.get().setSeats(t.getSeats());
+            train.get().setFirm(t.getFirm());
+            train.get().setName(t.getName());
         }
     }
 }
+

@@ -28,6 +28,14 @@ public class TrainService {
         return trainRepo.getAll();
     }
 
+    public Train getTrain(UUID id){
+        Optional<Train> t = trainRepo.getById(id);
+        if (t.isPresent()){
+            return t.get();
+        }
+        return null;
+    }
+
     public void updateTrain( Train tupdate){
         trainRepo.update(tupdate);
 
@@ -45,7 +53,11 @@ public class TrainService {
     }
     public void delete(UUID id){
         //ustawienie nulla dla alokacji
-        trainRepo.delete(id);
+        Optional<Train> t = trainRepo.getById(id);
+        if(t.isPresent()){
+            trainRepo.delete(t.get());
+        }
+
     }
 
 

@@ -68,9 +68,26 @@ public class TrainController {
 
     }
 
-    @DeleteMapping("del/{id}")
-    public void deleteTrain(@PathVariable UUID id){
+    @GetMapping("/edit/{id}")
+    public String editSite(@PathVariable UUID id, Model model){
+        model.addAttribute("train",trainService.getTrain(id));
+        model.addAttribute("firms",firmService.getFirms());
+        return "Train/edit";
+    }
+    @PostMapping("/edit/{id}")
+    public String editUser(@PathVariable UUID id, @Valid @ModelAttribute("train") Train train, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("firms",firmService.getFirms());
+            return "Train/edit";
+        }
+        trainService.updateTrain(train);
+        return "redirect:/trains";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteTrain(@PathVariable UUID id){
         trainService.delete(id);
+        return "redirect:/trains";
     }
 
     @PutMapping("update/{id}")
