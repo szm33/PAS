@@ -11,6 +11,9 @@
         <td>Name</td>
         <td>Number of Seats</td>
         <td>Firm</td>
+        <form  th:action="@{/trains/add}" method="get">
+            <td><input type="submit" value="Create train" /></td>
+        </form>
     </tr>
     </thead>
     <tbody>
@@ -20,7 +23,7 @@
     <tr th:each="train: ${trains}">
         <td th:text="${train.id}" />
         <td th:text="${train.name}" />
-        <td th:text="${train.seats.size()}" />
+        <td th:text="${train.seats}" />
         <td th:text="${train.firm.name}" />
     </tr>
 

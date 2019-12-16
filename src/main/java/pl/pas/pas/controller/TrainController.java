@@ -3,10 +3,21 @@ package pl.pas.pas.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.pas.pas.model.Firms.Firm;
+import pl.pas.pas.model.Firms.InterCity;
+import pl.pas.pas.model.Firms.Regio;
+import pl.pas.pas.model.Firms.TLK;
 import pl.pas.pas.model.Trains.Train;
+import pl.pas.pas.model.seats.Seat;
+import pl.pas.pas.repo.FirmRepo;
+import pl.pas.pas.service.FirmService;
 import pl.pas.pas.service.TrainService;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/trains")
@@ -14,11 +25,13 @@ import java.util.UUID;
 public class TrainController {
 
     @Autowired
-    public TrainController(TrainService trainService) {
+    public TrainController(TrainService trainService,FirmService firmService) {
         this.trainService = trainService;
+        this.firmService = firmService;
     }
 
     private TrainService trainService;
+    private FirmService firmService;
 
     @PostMapping
     public void addTrain(Train t){
@@ -33,6 +46,26 @@ public class TrainController {
     public String s(Model model){
         model.addAttribute("trains",trainService.getTrains());
         return "Train/index";
+    }
+
+    @GetMapping("/add")
+    public String addSite(Model model){
+
+        model.addAttribute("firms",firmService.getFirms());
+        model.addAttribute("train",new Train());
+        return "Train/create";
+
+    }
+
+    @PostMapping("/add")
+    public String addTrain(@Valid @ModelAttribute("train") Train train, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("firms",firmService.getFirms());
+            return "Train/create";
+        }
+        trainService.addTrain(train);
+        return "redirect:/trains";
+
     }
 
     @DeleteMapping("del/{id}")
