@@ -90,9 +90,4 @@ public class TrainController {
         return "redirect:/trains";
     }
 
-    @PutMapping("update/{id}")
-    public void updateTrain(@PathVariable UUID id, @RequestBody Train t){
-        trainService.updateTrain(t);
-    }
-
 }

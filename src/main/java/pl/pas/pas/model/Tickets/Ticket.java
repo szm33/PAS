@@ -22,6 +22,10 @@ public class Ticket {
         this.endingDate = endingDate;
     }
 
+    public Ticket(){
+        this.id = UUID.randomUUID();
+    }
+
     public UUID getId() {
         return id;
     }

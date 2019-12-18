@@ -1,8 +1,12 @@
 package pl.pas.pas.repo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import pl.pas.pas.model.Tickets.Ticket;
 
+import javax.annotation.PostConstruct;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +16,24 @@ import java.util.UUID;
 public class TicketRepo implements IRepo<Ticket> {
 
     private List<Ticket> tickets = new ArrayList<>();
+    private TrainRepo trainRepo;
+    private UserRepo userRepo;
 
-    public TicketRepo() {
+    @Autowired
+    public TicketRepo(TrainRepo trainRepo, UserRepo userRepo) {
+        this.trainRepo = trainRepo;
+        this.userRepo = userRepo;
     }
+
+
+    @PostConstruct
+    private void postConstruct(){
+        for (int i = 0; i < 3; i++) {
+            tickets.add(new Ticket(UUID.randomUUID(),userRepo.getAll().get(i),trainRepo.getAll().get(i),LocalDate.of(1111,1,1),LocalDate.of(2222,2,2)));
+
+        }
+    }
+
 
     public void add(Ticket t) {
         tickets.add(t);

@@ -1,6 +1,8 @@
 package pl.pas.pas.model.Trains;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.NumberFormat;
 import pl.pas.pas.model.Firms.Firm;
 import pl.pas.pas.model.seats.Seat;
 
@@ -16,23 +18,26 @@ public class Train {
     @NotBlank(message = "Name cannot be empty")
     @Size(min = 2, max = 20, message = "Name must have between 2-20 letters")
     private String name;
-    @Size(min = 1,message = "Minimum 1 seat")
-    public List<Seat> seats;
+//    @Size(min = 1,message = "Minimum 1 seat")
+//    public List<Seat> seats;
+    @Range(min = 0l, message = "Invalid number, must be greater than 0")
+    private int seats;
     private Firm firm;
 
-    public Train(@JsonProperty UUID id, @JsonProperty String name, int numberOfSeats, Firm firm) {
+    public Train(@JsonProperty UUID id, @JsonProperty String name, int seats, Firm firm) {
         this.id = id;
         this.name = name;
-        this.seats = new ArrayList<>();
-        for (int i = 0; i < numberOfSeats; i++) {
-            seats.add(new Seat(Integer.toString(i+1)));
-        }
+//        this.seats = new ArrayList<>();
+//        for (int i = 0; i < numberOfSeats; i++) {
+//            seats.add(new Seat(Integer.toString(i+1)));
+//        }
+        this.seats = seats;
         this.firm = firm;
     }
 
     public Train(){
         this.id = UUID.randomUUID();
-        seats = new ArrayList<>();
+//        seats = new ArrayList<>();
     }
 
     public UUID getId() {
@@ -66,15 +71,17 @@ public class Train {
 //}
 
     public int getSeats(){
-        return seats.size();
+//        return seats.size();
+        return seats;
     }
 
     public void setSeats(int s){
-        List<Seat> seats1 = new ArrayList<>();
-        for (int i = 0; i < s; i++) {
-            seats1.add(new Seat(Integer.toString(i+1)));
-        }
-        seats = seats1;
+//        List<Seat> seats1 = new ArrayList<>();
+//        for (int i = 0; i < s; i++) {
+//            seats1.add(new Seat(Integer.toString(i+1)));
+//        }
+//        seats = seats1;
+        this.seats = s;
     }
 
 //    public List<Seat> getSeats() {

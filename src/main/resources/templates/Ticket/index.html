@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Indeks</title>
+</head>
+<table>
+    <thead>
+    <tr>
+        <td>Id</td>
+        <td>User</td>
+        <td>Pociag</td>
+        <td>Start</td>
+        <td>Koniec</td>
+        <form  th:action="@{/tickets/add}" method="get">
+            <td><input type="submit" value="Create ticket" /></td>
+        </form>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${tickets.isEmpty()}">
+        <td colspan="2"> Brak Biletów </td>
+    </tr>
+    <tr th:each="ticket: ${tickets}">
+        <td th:text="${ticket.id}" />
+        <td th:text="${ticket.user.name}" />
+        <td th:text="${ticket.train.name}"/>
+        <td th:text="${ticket.startingDate}" />
+        <td th:text="${ticket.endingDate}" />
+        <form  th:action="@{/tickets/edit/{id}(id=${ticket.id})}" method="get">
+            <td><input type="submit" value="Edit" /></td>
+        </form>
+        <form  th:action="@{/tickets/delete/{id}(id=${ticket.id})}" method="get">
+            <td><input type="submit" value="Delete" /></td>
+        </form>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

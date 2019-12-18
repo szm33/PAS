@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Indeks</title>
+</head>
+<body>
+<form action="#" th:action="@{/tickets/add}" th:object="${ticket}"
+      method="post">
+    <fieldset>
+        <input type="submit" id="submitButton" th:value="Save">
+        <table>
+            <thead>
+            <tr>
+                <th> Pociag</th>
+                <th> User</th>
+                <th> Start</th>
+                <th> Koniec</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr >
+                <td>
+                <select  th:field="${ticket.train}">
+                    <option th:each="train : ${trains}" th:value="${train.name}"  th:text="${train.name}" ></option>
+                </select>
+                </td>
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+                <!--                <td><input th:field="${train.firm.name}" /></td>-->
+                <td>
+                    <select  th:field="${ticket.user}">
+                        <option th:each="user : ${users}" th:value="${user.name}"  th:text="${user.name}"></option>
+                    </select>
+                </td>
+                <td><input type="date" th:field="*{startingDate}"/> </td>
+                <td><input type="date" th:field="*{endingDate}"/> </td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</form>
+</body>
+</html>
