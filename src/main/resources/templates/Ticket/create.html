@@ -15,26 +15,24 @@
                 <th> Pociag</th>
                 <th> User</th>
                 <th> Start</th>
-                <th> Koniec</th>
             </tr>
             </thead>
             <tbody>
             <tr >
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
                 <td>
-                <select  trainId="selectUser" th:field="${train.trainId}">
+                    <select   th:field="${train.trainId}">
                     <option th:each="train : ${trains}" th:value="${train.trainId}"  th:text="${train.name}" ></option>
                 </select>
                 </td>
-                <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
                 <!--                <td><input th:field="${train.firm.name}" /></td>-->
                 <td>
-                    <select  trainId="selecttttt" th:name="#{us}" th:field="${user.userId}">
+                    <select  th:field="${user.userId}">
                         <option th:each="user : ${users}" th:value="${user.userId}"  th:text="${user.name}" ></option>
                     </select>
                 </td>
 
-<!--                <td><input type="date" th:field="*{startingDate}"/> </td>-->
-<!--                <td><input type="date" th:field="*{endingDate}"/> </td>-->
+                <td><input type="date" th:field="*{startingDate}"/> </td>
             </tr>
             </tbody>
         </table>

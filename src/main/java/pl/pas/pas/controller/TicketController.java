@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,17 +56,16 @@ public class TicketController {
     }
 
     @PostMapping("/add")
-    public String addTrain(@Valid @ModelAttribute("ticket") Ticket ticket,@ModelAttribute("train") Train train,@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
+    public String addTrain(@Valid @ModelAttribute("ticket") Ticket ticket, BindingResult bindingResult, @ModelAttribute("train") Train train, @ModelAttribute("user") User user, Model model){
         if(bindingResult.hasErrors()){
+            model.addAttribute("users",userService.getUsers());
+            model.addAttribute("trains",trainService.getTrains());
             return "Ticket/create";
+            //return "redirect:/tickets/add";
         }
-        Ticket t = new Ticket();
-       // ticket.setTrain(trainService.getTrain(train.getUserId()));
-        //u.setName("dsasd");
-
-            //ticket.setUser(new User());
-        //ticket.setUser(new User());
-        ticketService.addTicket(new Ticket(UUID.randomUUID(),userService.getUser(user.getUserId()),trainService.getTrain(train.getTrainId()), LocalDate.of(1111,1,1),LocalDate.of(2222,2,2)));
+        ticket.setTrain(train);
+        ticket.setUser(user);
+        ticketService.addTicket(ticket);
         return "redirect:/tickets";
 
     }

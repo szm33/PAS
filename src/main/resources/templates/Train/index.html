@@ -18,7 +18,7 @@
     </thead>
     <tbody>
     <tr th:if="${trains.isEmpty()}">
-        <td colspan="2"> Brak pociągów </td>
+        <td colspan="2"> No trains </td>
     </tr>
     <tr th:each="train: ${trains}">
         <td th:text="${train.trainId}" />

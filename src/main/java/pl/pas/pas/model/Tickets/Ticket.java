@@ -1,8 +1,10 @@
 package pl.pas.pas.model.Tickets;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import pl.pas.pas.model.Trains.*;
 import pl.pas.pas.model.Users.*;
 
+import javax.validation.constraints.Future;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -11,7 +13,11 @@ public class Ticket {
     private UUID ticketId;
     private User user;
     private Train train;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Future(message = "Date must be in the future")
     private LocalDate startingDate;
+
     private LocalDate endingDate;
 
     public Ticket(UUID id, User user, Train train, LocalDate startingDate, LocalDate endingDate) {

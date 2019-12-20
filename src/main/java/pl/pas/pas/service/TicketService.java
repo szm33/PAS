@@ -12,13 +12,19 @@ import java.util.UUID;
 public class TicketService {
 
     private IRepo ticketRepo;
+    private UserService userService;
+    private TrainService trainService;
 
     @Autowired
-    public TicketService(IRepo ticketRepo) {
+    public TicketService(IRepo ticketRepo, TrainService trainService, UserService userService) {
         this.ticketRepo = ticketRepo;
+        this.userService = userService;
+        this.trainService = trainService;
     }
 
     public void addTicket(Ticket t){
+        t.setUser(userService.getUser(t.getUser().getUserId()));
+        t.setTrain(trainService.getTrain(t.getTrain().getTrainId()));
         ticketRepo.add(t);
     }
 
