@@ -22,14 +22,14 @@
     </tr>
     <tr th:each="user: ${users}">
 
-            <td th:text="${user.id}" />
+            <td th:text="${user.userId}" />
             <td th:text="${user.name}" />
             <td th:text="${user.type}" />
             <td th:text="${user.isActive}" />
-        <form  th:action="@{/users/state/{id}(id=${user.id})}" method="get">
+        <form  th:action="@{/users/state/{id}(id=${user.userId})}" method="get">
             <td><input type="submit" value="Change State" /></td>
         </form>
-        <form  th:action="@{/users/edit/{id}(id=${user.id})}" method="get">
+        <form  th:action="@{/users/edit/{id}(id=${user.userId})}" method="get">
             <td><input type="submit" value="Edit" /></td>
         </form>
     </tr>

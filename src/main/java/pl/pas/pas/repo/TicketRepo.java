@@ -6,7 +6,6 @@ import pl.pas.pas.model.Tickets.Ticket;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +39,7 @@ public class TicketRepo implements IRepo<Ticket> {
     }
 
     public Optional<Ticket> getById(UUID id) {
-        return tickets.stream().filter(user -> user.getId().equals(id)).findFirst();
+        return tickets.stream().filter(user -> user.getTicketId().equals(id)).findFirst();
     }
 
     public List<Ticket> getAll() {
@@ -52,7 +51,7 @@ public class TicketRepo implements IRepo<Ticket> {
     }
 
     public void update(Ticket t) {
-        Optional<Ticket> ticket = getById(t.getId());
+        Optional<Ticket> ticket = getById(t.getTicketId());
         if (ticket.isPresent())
         {
             tickets.set(tickets.indexOf(ticket), t);

@@ -17,6 +17,8 @@ import pl.pas.pas.service.TrainService;
 import pl.pas.pas.service.UserService;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.UUID;
 
 @RequestMapping("/tickets")
 @Controller
@@ -46,16 +48,24 @@ public class TicketController {
         model.addAttribute("users",userService.getUsers());
         model.addAttribute("trains",trainService.getTrains());
         model.addAttribute("ticket",new Ticket());
+        model.addAttribute("user",new User());
+        model.addAttribute("train",new Train());
         return "Ticket/create";
 
     }
 
     @PostMapping("/add")
-    public String addTrain(@Valid @ModelAttribute("ticket") Ticket ticket, BindingResult bindingResult, Model model){
+    public String addTrain(@Valid @ModelAttribute("ticket") Ticket ticket,@ModelAttribute("train") Train train,@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             return "Ticket/create";
         }
-        ticketService.addTicket(ticket);
+        Ticket t = new Ticket();
+       // ticket.setTrain(trainService.getTrain(train.getUserId()));
+        //u.setName("dsasd");
+
+            //ticket.setUser(new User());
+        //ticket.setUser(new User());
+        ticketService.addTicket(new Ticket(UUID.randomUUID(),userService.getUser(user.getUserId()),trainService.getTrain(train.getTrainId()), LocalDate.of(1111,1,1),LocalDate.of(2222,2,2)));
         return "redirect:/tickets";
 
     }

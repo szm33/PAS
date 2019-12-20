@@ -27,7 +27,7 @@ public class UserRepo implements IRepo<User> {
     }
 
     public Optional<User> getById(UUID id) {
-        return users.stream().filter(user -> user.getId().equals(id)).findFirst();
+        return users.stream().filter(user -> user.getUserId().equals(id)).findFirst();
     }
 
     public List<User> getAll() {
@@ -39,9 +39,10 @@ public class UserRepo implements IRepo<User> {
     }
 
     public void update(User u) {
-        Optional<User> user = getById(u.getId());
+        Optional<User> user = getById(u.getUserId());
         if (user.isPresent()) {
-            users.set(users.indexOf(user), u);
+//            users.set(users.indexOf(user), u);
+            user.get().setName(u.getName());
         }
     }
 }

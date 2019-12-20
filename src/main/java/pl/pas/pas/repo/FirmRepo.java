@@ -28,7 +28,7 @@ public class FirmRepo implements IRepo<Firm> {
     }
 
     public Optional<Firm> getById(UUID id) {
-        return firms.stream().filter(firm -> firm.getId().equals(id)).findFirst();
+        return firms.stream().filter(firm -> firm.getFirmId().equals(id)).findFirst();
     }
 
     public List<Firm> getAll() {
@@ -40,7 +40,7 @@ public class FirmRepo implements IRepo<Firm> {
     }
 
     public void update(Firm f) {
-        Optional<Firm> firm = getById(f.getId());
+        Optional<Firm> firm = getById(f.getFirmId());
         if (firm.isPresent()){
             firms.set(firms.indexOf(firm), f);
         }

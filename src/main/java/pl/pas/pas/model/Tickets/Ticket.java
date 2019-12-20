@@ -8,14 +8,14 @@ import java.util.UUID;
 
 public class Ticket {
 
-    private UUID id;
+    private UUID ticketId;
     private User user;
     private Train train;
     private LocalDate startingDate;
     private LocalDate endingDate;
 
     public Ticket(UUID id, User user, Train train, LocalDate startingDate, LocalDate endingDate) {
-        this.id = id;
+        this.ticketId = id;
         this.user = user;
         this.train = train;
         this.startingDate = startingDate;
@@ -23,15 +23,17 @@ public class Ticket {
     }
 
     public Ticket(){
-        this.id = UUID.randomUUID();
+        this.ticketId = UUID.randomUUID();
+        //this.user = new User();
+        //this.train = new Train();
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getTicketId() {
+        return ticketId;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setTicketId(UUID ticketId) {
+        this.ticketId = ticketId;
     }
 
     public User getUser() {

@@ -5,10 +5,10 @@
     <title>Indeks</title>
 </head>
 <body>
-<form action="#" th:action="@{/trains/edit/{id}(id=${train.id})}" th:object="${train}"
+<form action="#" th:action="@{/trains/edit/{id}(id=${train.trainId})}" th:object="${train}"
       method="post">
     <fieldset>
-        <input type="submit" id="submitButton" th:value="Save">
+        <input type="submit" trainId="submitButton" th:value="Save">
         <table>
             <thead>
             <tr>

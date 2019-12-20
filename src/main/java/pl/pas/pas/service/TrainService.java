@@ -2,6 +2,9 @@ package pl.pas.pas.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.pas.pas.model.Firms.InterCity;
+import pl.pas.pas.model.Firms.Regio;
+import pl.pas.pas.model.Firms.TLK;
 import pl.pas.pas.model.Trains.Train;
 import pl.pas.pas.repo.IRepo;
 import pl.pas.pas.repo.TrainRepo;
@@ -21,6 +24,7 @@ public class TrainService {
     }
 
     public void addTrain(Train t){
+
         trainRepo.add(t);
     }
 
@@ -33,10 +37,21 @@ public class TrainService {
         if (t.isPresent()){
             return t.get();
         }
-        return null;
+        return new Train();
     }
 
     public void updateTrain( Train tupdate){
+        switch (tupdate.getFirm().getName()){
+            case "TLK":
+                tupdate.setFirm(new TLK());
+                break;
+            case "InterCity":
+                tupdate.setFirm(new InterCity());
+                break;
+            case "Regio":
+                tupdate.setFirm(new Regio());
+                break;
+        }
         trainRepo.update(tupdate);
 
 //        Optional<Train> t = trainRepo.getById(id);
@@ -53,7 +68,7 @@ public class TrainService {
     }
     public void delete(UUID id){
         //ustawienie nulla dla alokacji
-        Optional<Train> t = trainRepo.getById(id);
+        Optional t = trainRepo.getById(id);
         if(t.isPresent()){
             trainRepo.delete(t.get());
         }

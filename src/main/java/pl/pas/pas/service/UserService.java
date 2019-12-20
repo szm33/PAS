@@ -25,13 +25,13 @@ public class UserService {
     public void addUser(User u){
         switch(u.getType()){
             case "Admin":
-                userRepo.add(new Admin(u.getName(),u.getId(),u.getIsActive()));
+                userRepo.add(new Admin(u.getName(),u.getUserId(),u.getIsActive()));
                 break;
             case "ResourcesManager":
-                userRepo.add(new ResourcesManager(u.getName(),u.getId(),u.getIsActive()));
+                userRepo.add(new ResourcesManager(u.getName(),u.getUserId(),u.getIsActive()));
                 break;
             case "Client":
-                userRepo.add(new Client(u.getName(),u.getId(),u.getIsActive()));
+                userRepo.add(new Client(u.getName(),u.getUserId(),u.getIsActive()));
                 break;
         }
     }
@@ -46,7 +46,7 @@ public class UserService {
            return  u.get();
        }
        else {
-           return null;
+           return new User();
        }
 
     }
@@ -61,12 +61,12 @@ public class UserService {
 
     public void updateUser(User user) {
         userRepo.update(user);
-//        Optional<User> u = userRepo.getById(user.getId());
+//        Optional<User> u = userRepo.getById(user.getUserId());
 //        if (u.isPresent()){
 //            u.get().setName(user.getName());
 //            u.get().setIsActive(user.getIsActive());
 //            u.get().setType(user.getType());
-//            userRepo.update(u.get().getId(),u.get());
+//            userRepo.update(u.get().getUserId(),u.get());
 //        }
     }
     // public void updateUser(UUID id, User uupdate){

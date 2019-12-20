@@ -29,7 +29,7 @@ public class TrainRepo implements IRepo<Train> {
     }
 
     public Optional<Train> getById(UUID id) {
-        return trains.stream().filter(user -> user.getId().equals(id)).findFirst();
+        return trains.stream().filter(user -> user.getTrainId().equals(id)).findFirst();
     }
 
     public List<Train> getAll() {
@@ -41,7 +41,7 @@ public class TrainRepo implements IRepo<Train> {
     }
 
     public void update(Train t) {
-        Optional<Train> train = getById(t.getId());
+        Optional<Train> train = getById(t.getTrainId());
         if (train.isPresent()) {
             train.get().setSeats(t.getSeats());
             train.get().setFirm(t.getFirm());

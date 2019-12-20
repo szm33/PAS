@@ -77,9 +77,12 @@ public class TrainController {
     @PostMapping("/edit/{id}")
     public String editUser(@PathVariable UUID id, @Valid @ModelAttribute("train") Train train, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
+            train.setTrainId(id);
+            model.addAttribute("train",train);
             model.addAttribute("firms",firmService.getFirms());
             return "Train/edit";
         }
+        train.setTrainId(id);
         trainService.updateTrain(train);
         return "redirect:/trains";
     }

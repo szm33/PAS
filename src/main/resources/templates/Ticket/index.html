@@ -23,15 +23,15 @@
         <td colspan="2"> Brak Biletów </td>
     </tr>
     <tr th:each="ticket: ${tickets}">
-        <td th:text="${ticket.id}" />
-        <td th:text="${ticket.user.name}" />
-        <td th:text="${ticket.train.name}"/>
-        <td th:text="${ticket.startingDate}" />
-        <td th:text="${ticket.endingDate}" />
-        <form  th:action="@{/tickets/edit/{id}(id=${ticket.id})}" method="get">
+        <td th:text="${ticket.ticketId}" />
+        <td th:text="${ticket.user.userId}"/>
+        <td th:text="${ticket.train.trainId}"/>
+<!--        <td th:text="${ticket.startingDate}" />-->
+<!--        <td th:text="${ticket.endingDate}" />-->
+        <form  th:action="@{/tickets/edit/{id}(id=${ticket.ticketId})}" method="get">
             <td><input type="submit" value="Edit" /></td>
         </form>
-        <form  th:action="@{/tickets/delete/{id}(id=${ticket.id})}" method="get">
+        <form  th:action="@{/tickets/delete/{id}(id=${ticket.ticketId})}" method="get">
             <td><input type="submit" value="Delete" /></td>
         </form>
     </tr>

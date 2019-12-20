@@ -2,30 +2,26 @@ package pl.pas.pas.model.Trains;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Range;
-import org.springframework.format.annotation.NumberFormat;
 import pl.pas.pas.model.Firms.Firm;
-import pl.pas.pas.model.seats.Seat;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.*;
 
 public class Train {
 
-    private UUID id;
+    private UUID trainId;
     @NotBlank(message = "Name cannot be empty")
     @Size(min = 2, max = 20, message = "Name must have between 2-20 letters")
     private String name;
 //    @Size(min = 1,message = "Minimum 1 seat")
 //    public List<Seat> seats;
-    @Range(min = 0l, message = "Invalid number, must be greater than 0")
+    @Range(min = 1, message = "Invalid number, must be greater than 0")
     private int seats;
     private Firm firm;
 
     public Train(@JsonProperty UUID id, @JsonProperty String name, int seats, Firm firm) {
-        this.id = id;
+        this.trainId = id;
         this.name = name;
 //        this.seats = new ArrayList<>();
 //        for (int i = 0; i < numberOfSeats; i++) {
@@ -36,16 +32,16 @@ public class Train {
     }
 
     public Train(){
-        this.id = UUID.randomUUID();
+        this.trainId = UUID.randomUUID();
 //        seats = new ArrayList<>();
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getTrainId() {
+        return trainId;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setTrainId(UUID trainId) {
+        this.trainId = trainId;
     }
 
     public String getName() {
@@ -88,7 +84,7 @@ public class Train {
 //        return new ArrayList<>(seats);
 //    }
 
-//    public Seat getSeatById(UUID id) {
+//    public Seat getSeatById(UUID trainId) {
 //        return seats.
 //    }
 //

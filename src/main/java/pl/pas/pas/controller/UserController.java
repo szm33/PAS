@@ -59,11 +59,13 @@ public class UserController {
         return "User/edit";
     }
     @PostMapping("/edit/{id}")
-    public String editUser(@PathVariable UUID id, @Valid @ModelAttribute User user, BindingResult bindingResult, Model model){
+    public String editUser(@PathVariable UUID id, @Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
-           // model.addAttribute("user",new User());
+            user.setUserId(id);
+            model.addAttribute("user",user);
             return "User/edit";
         }
+        user.setUserId(id);
         userService.updateUser(user);
         return "redirect:/users";
     }

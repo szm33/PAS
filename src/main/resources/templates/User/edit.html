@@ -5,23 +5,23 @@
     <title>Indeks</title>
 </head>
 <body>
-<form action="#" th:action="@{/users/edit/{id}(id=${user.id})}" th:object="${user}"
+<form action="#" th:action="@{/users/edit/{id}(id=${user.userId})}" th:object="${user}"
       method="post">
     <fieldset>
-        <input type="submit" id="submitButton" th:value="Save">
+        <input type="submit" trainId="submitButton" th:value="Save">
         <table>
             <thead>
             <tr>
                 <th> Name</th>
-                <th> Type</th>
+<!--                <th> Type</th>-->
             </tr>
             </thead>
             <tbody>
             <tr >
                 <td><input th:field="*{name}" /></td>
                 <!--                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" role="alert" />-->
-                <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
-                <td><input th:field="*{type}" /></td>
+                <td><li th:each="err : ${#fields.errors('*')}" th:text="${err}" /></td>
+<!--                <td><input th:field="*{type}" /></td>-->
             </tr>
             </tbody>
         </table>

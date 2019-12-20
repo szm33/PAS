@@ -12,23 +12,21 @@ public class User {
     @Size(min = 2, max = 20, message = "Name must have between 2-20 letters")
     private String name;
 
-    @NotBlank(message = "Type cannot be empty")
-    @Pattern(regexp = "(Admin)|(Client)|(ResourceManager)", message = "Invalid Type")
     private String type;
 
-    private UUID id;
+    private UUID userId;
     private boolean isActive;
 
-    public User(String name, String type, UUID id, boolean isActive) {
+    public User(String name, String type, UUID idu, boolean isActive) {
         this.name = name;
         this.type = type;
-        this.id = id;
+        this.userId = idu;
         this.isActive = isActive;
     }
 
     public User(){
         this.isActive=true;
-        this.id = UUID.randomUUID();
+        this.userId = UUID.randomUUID();
     }
 
     public String getName() {
@@ -47,12 +45,12 @@ public class User {
         this.type = type;
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getUserId() {
+        return userId;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
     public boolean getIsActive() {
