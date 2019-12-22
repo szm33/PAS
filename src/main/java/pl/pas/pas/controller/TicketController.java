@@ -75,4 +75,10 @@ public class TicketController {
         ticketService.endTicket(id);
         return "redirect:/tickets";
     }
+
+    @GetMapping("delete/{id}")
+    public String delete(@PathVariable UUID id){
+        ticketService.deleteTicket(id);
+        return "redirect:/tickets";
+    }
 }

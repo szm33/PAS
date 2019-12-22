@@ -34,7 +34,10 @@ public class TicketService {
     }
 
     public void deleteTicket(UUID id){
-        ticketRepo.delete(id);
+       Ticket t = getTicket(id);
+        if(t.getEndingDate() == null){
+            ticketRepo.delete(t);
+        }
     }
 
     public List<Ticket> getTickets(){
@@ -48,7 +51,7 @@ public class TicketService {
             boolean flag = true;
             for (Ticket ticket:getTickets()
                  ) {
-                if(train == ticket.getTrain()){
+                if(train == ticket.getTrain() && ticket.getEndingDate() == null){
                     flag = false;
                 }
             }
