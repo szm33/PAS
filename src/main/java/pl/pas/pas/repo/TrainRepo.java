@@ -20,6 +20,7 @@ public class TrainRepo implements IRepo<Train> {
         trains.add(new Train(UUID.randomUUID(), "pociag1", 10, new Regio()));
         trains.add(new Train(UUID.randomUUID(), "pociag2", 20, new InterCity()));
         trains.add(new Train(UUID.randomUUID(), "pociag3", 30, new TLK()));
+        trains.add(new Train(UUID.randomUUID(), "pociag4", 30, new TLK()));
 
     }
 

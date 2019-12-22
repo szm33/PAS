@@ -1,12 +1,19 @@
 package pl.pas.pas.model.Tickets;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
 import pl.pas.pas.model.Trains.*;
 import pl.pas.pas.model.Users.*;
 
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.UUID;
+
+
+
 
 public class Ticket {
 
@@ -15,7 +22,8 @@ public class Ticket {
     private Train train;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future(message = "Date must be in the future")
+    //@Future(message = "Date must be in the future")
+    @NotNull(message = "Date cant be empty")
     private LocalDate startingDate;
 
     private LocalDate endingDate;
@@ -72,5 +80,20 @@ public class Ticket {
 
     public void setEndingDate(LocalDate endingDate) {
         this.endingDate = endingDate;
+    }
+
+
+    @Component
+    public class LocalDateFutureValidator implements ConstraintValidator<Future, LocalDate> {
+
+        @Override
+        public void initialize(Future future) {
+        }
+
+        @Override
+        public boolean isValid(LocalDate localDate, ConstraintValidatorContext constraintValidatorContext) {
+            LocalDate today = LocalDate.now();
+            return localDate.isEqual(today) || localDate.isAfter(today);
+        }
     }
 }

@@ -6,10 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.pas.pas.model.Tickets.Ticket;
 import pl.pas.pas.model.Trains.Train;
 import pl.pas.pas.model.Users.User;
@@ -46,8 +43,10 @@ public class TicketController {
     @GetMapping("/add")
     public String addSite(Model model){
 
-        model.addAttribute("users",userService.getUsers());
-        model.addAttribute("trains",trainService.getTrains());
+       // model.addAttribute("users",userService.getUsers());
+        model.addAttribute("users",ticketService.getAllActiveUser());
+        //model.addAttribute("trains",trainService.getTrains());
+        model.addAttribute("trains",ticketService.getAllNoAllocatedTrains());
         model.addAttribute("ticket",new Ticket());
         model.addAttribute("user",new User());
         model.addAttribute("train",new Train());
@@ -56,10 +55,12 @@ public class TicketController {
     }
 
     @PostMapping("/add")
-    public String addTrain(@Valid @ModelAttribute("ticket") Ticket ticket, BindingResult bindingResult, @ModelAttribute("train") Train train, @ModelAttribute("user") User user, Model model){
+    public String addTrain(@Valid @ModelAttribute("ticket") Ticket ticket, BindingResult bindingResult, @Valid @ModelAttribute("train") Train train, BindingResult bindingResult1,@Valid @ModelAttribute("user") User user, BindingResult bindingResult2, Model model){
         if(bindingResult.hasErrors()){
-            model.addAttribute("users",userService.getUsers());
-            model.addAttribute("trains",trainService.getTrains());
+            //model.addAttribute("users",userService.getUsers());
+            model.addAttribute("users",ticketService.getAllActiveUser());
+            //model.addAttribute("trains",trainService.getTrains());
+            model.addAttribute("trains",ticketService.getAllNoAllocatedTrains());
             return "Ticket/create";
             //return "redirect:/tickets/add";
         }
@@ -68,5 +69,10 @@ public class TicketController {
         ticketService.addTicket(ticket);
         return "redirect:/tickets";
 
+    }
+    @GetMapping("/end/{id}")
+    public String end(@PathVariable UUID id){
+        ticketService.endTicket(id);
+        return "redirect:/tickets";
     }
 }

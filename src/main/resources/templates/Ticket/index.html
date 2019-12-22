@@ -27,10 +27,15 @@
         <td th:text="${ticket.user.name}"/>
         <td th:text="${ticket.train.name}"/>
         <td th:text="${ticket.startingDate}" />
+        <td>
+            <span th:if="${ticket.endingDate == null}">
+                <form  th:action="@{/tickets/end/{id}(id=${ticket.ticketId})}" method="get">
+                    <input type="submit" value="End" />
+                </form>
+            </span>
+            <span th:if="${ticket.endingDate}" th:text="${ticket.endingDate}"/>
+        </td>
 <!--        <td th:text="${ticket.endingDate}" />-->
-        <form  th:action="@{/tickets/edit/{id}(id=${ticket.ticketId})}" method="get">
-            <td><input type="submit" value="Edit" /></td>
-        </form>
         <form  th:action="@{/tickets/delete/{id}(id=${ticket.ticketId})}" method="get">
             <td><input type="submit" value="Delete" /></td>
         </form>

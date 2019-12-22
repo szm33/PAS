@@ -5,6 +5,7 @@
     <title>Indeks</title>
 </head>
 <body>
+<span th:if="${trains.isEmpty() == false && users.isEmpty() == false}">
 <form action="#" th:action="@{/tickets/add}" th:object="${ticket}"
       method="post">
     <fieldset>
@@ -18,7 +19,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr >
+            <tr>
                 <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
                 <td>
                     <select   th:field="${train.trainId}">
@@ -38,5 +39,13 @@
         </table>
     </fieldset>
 </form>
+</span>
+<span th:if="${trains.isEmpty() || users.isEmpty()}">
+    <h1>No available trains or users </h1>
+    <form action="#" th:action="@{/tickets}"
+          method="get">
+        <input type="submit" value="Back">
+    </form>
+</span>
 </body>
 </html>

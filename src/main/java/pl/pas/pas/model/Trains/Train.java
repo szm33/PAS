@@ -20,7 +20,7 @@ public class Train {
     private int seats;
     private Firm firm;
 
-    public Train(@JsonProperty UUID id, @JsonProperty String name, int seats, Firm firm) {
+    public Train( UUID id,  String name, int seats, Firm firm) {
         this.trainId = id;
         this.name = name;
 //        this.seats = new ArrayList<>();
