@@ -48,6 +48,7 @@ public class TrainController {
     @GetMapping
     public String s(Model model){
         model.addAttribute("trains",trainService.getTrains());
+        model.addAttribute("text",new TrainType(""));
         return "Train/index";
     }
 
@@ -186,6 +187,18 @@ public class TrainController {
     public String deleteTrain(@PathVariable UUID id){
         trainService.delete(id);
         return "redirect:/trains";
+    }
+
+    @GetMapping("sort")
+    public String sort(@ModelAttribute("text") TrainType text, Model model){
+        if(text.getType() == ""){
+            model.addAttribute("trains",trainService.getTrains());
+        }
+        else{
+            model.addAttribute("trains",trainService.sort(text.getType()));
+        }
+        model.addAttribute("text",text);
+        return "Train/index";
     }
 
 }

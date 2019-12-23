@@ -10,6 +10,7 @@ import pl.pas.pas.model.Trains.Train;
 import pl.pas.pas.repo.IRepo;
 import pl.pas.pas.repo.TrainRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -76,6 +77,18 @@ public class TrainService {
             trainRepo.delete(t.get());
         }
 
+    }
+
+    public List<Train> sort(String text){
+        List<Train> trains = new ArrayList<>();
+        for (Train t: getTrains()
+             ) {
+            if(t.getName().substring(0,text.length()).equals( text)){
+                trains.add(t);
+            }
+
+        }
+        return trains;
     }
 
 

@@ -36,5 +36,9 @@
     </tr>
     </tbody>
 </table>
+<form  th:action="@{/trains/sort}" method="get">
+    <input type="text" th:field="${text.type}">
+    <input type="submit" value="Sort" />
+</form>
 </body>
 </html>

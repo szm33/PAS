@@ -8,6 +8,7 @@ import pl.pas.pas.model.Users.ResourcesManager;
 import pl.pas.pas.model.Users.User;
 import pl.pas.pas.repo.IRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -86,4 +87,16 @@ public class UserService {
 //        //ustawienie nulla dla alokacji
 //        userRepo.delete(id);
 //    }
+
+    public List<User> sort(String text){
+        List<User> users = new ArrayList<>();
+        for (User u: getUsers()
+        ) {
+            if(u.getName().substring(0,text.length()).equals( text)){
+                users.add(u);
+            }
+
+        }
+        return users;
+    }
 }

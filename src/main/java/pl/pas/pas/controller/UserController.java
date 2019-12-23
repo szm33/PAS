@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pl.pas.pas.model.Trains.TrainType;
 import pl.pas.pas.model.Users.User;
 import pl.pas.pas.service.UserService;
 
@@ -27,6 +28,7 @@ public class UserController {
     @GetMapping
     public String showAll(Model model){
         model.addAttribute("users",userService.getUsers());
+        model.addAttribute("text",new TrainType(""));
         return "User/index";
     }
 
@@ -74,5 +76,17 @@ public class UserController {
     public String info(@PathVariable UUID id, Model model){
         model.addAttribute("user",userService.getUser(id));
         return "User/info";
+    }
+
+    @GetMapping("sort")
+    public String sort(@ModelAttribute("text") TrainType text, Model model){
+        if(text.getType() == ""){
+            model.addAttribute("users", userService.getUsers());
+        }
+        else{
+            model.addAttribute("users",userService.sort(text.getType()));
+        }
+        model.addAttribute("text",text);
+        return "User/index";
     }
 }
