@@ -29,7 +29,8 @@ public class TicketRepo implements IRepo<Ticket> {
     private void postConstruct(){
         for (int i = 0; i < 3; i++) {
             tickets.add(new Ticket(UUID.randomUUID(),userRepo.getAll().get(i),trainRepo.getAll().get(i),LocalDate.of(1111,1,1),null));
-
+            tickets.get(i).getTrain().setTicket(tickets.get(i));
+            tickets.get(i).getUser().getTickets().add(tickets.get(i));
         }
     }
 

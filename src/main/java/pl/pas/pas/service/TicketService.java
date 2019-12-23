@@ -30,6 +30,8 @@ public class TicketService {
     public void addTicket(Ticket t){
         t.setUser(userService.getUser(t.getUser().getUserId()));
         t.setTrain(trainService.getTrain(t.getTrain().getTrainId()));
+        t.getUser().getTickets().add(t);
+        t.getTrain().setTicket(t);
         ticketRepo.add(t);
     }
 
@@ -37,6 +39,8 @@ public class TicketService {
        Ticket t = getTicket(id);
         if(t.getEndingDate() == null){
             ticketRepo.delete(t);
+            t.getTrain().setTicket(null);
+            t.getUser().getTickets().remove(t);
         }
     }
 
@@ -48,14 +52,17 @@ public class TicketService {
         List<Train> t = new ArrayList<>();
         for (Train train:trainService.getTrains()
              ) {
-            boolean flag = true;
-            for (Ticket ticket:getTickets()
-                 ) {
-                if(train == ticket.getTrain() && ticket.getEndingDate() == null){
-                    flag = false;
-                }
-            }
-            if(flag){
+//            boolean flag = true;
+//            for (Ticket ticket:getTickets()
+//                 ) {
+//                if(train == ticket.getTrain() && ticket.getEndingDate() == null){
+//                    flag = false;
+//                }
+//            }
+//            if(flag){
+//                t.add(train);
+//            }
+            if(train.getTicket() == null){
                 t.add(train);
             }
 
@@ -87,6 +94,7 @@ public class TicketService {
         Ticket t = getTicket(id);
         if(!t.getStartingDate().isAfter(LocalDate.now())){
             t.setEndingDate( LocalDate.now());
+            t.getTrain().setTicket(null);
         }
     }
 }

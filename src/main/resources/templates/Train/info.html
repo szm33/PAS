@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Indeks</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Type</td>
+        <td>Number of Seats</td>
+        <td>Firm</td>
+        <td th:if="${train instanceof T(pl.pas.pas.model.Trains.ExpressTrain)}">Carriage</td>
+        <form  th:action="@{/trains}" method="get">
+            <td><input type="submit" value="Back" /></td>
+        </form>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${train.trainId}" />
+        <td th:text="${train.name}" />
+        <td th:text="${train.getClass().getSimpleName()}" />
+        <td th:text="${train.seats}" />
+        <td th:text="${train.firm.name}" />
+        <td th:if="${train instanceof T(pl.pas.pas.model.Trains.ExpressTrain)}" th:text="${train.carriage}"/>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${train.ticket != null}">
+    <h1>Ticket:</h1>
+<table>
+    <thead>
+    <tr>
+        <td>Id</td>
+        <td>User</td>
+        <td>Train</td>
+        <td>Start</td>
+        <td th:if="${train.ticket.endingDate != null}">End</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${train.ticket.ticketId}" />
+        <td th:text="${train.ticket.user.name}"/>
+        <td th:text="${train.ticket.train.name}"/>
+        <td th:text="${train.ticket.startingDate}" />
+        <td th:if="${train.ticket.endingDate}" th:text="${ticket.endingDate}"/>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

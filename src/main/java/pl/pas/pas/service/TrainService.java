@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.pas.pas.model.Firms.InterCity;
 import pl.pas.pas.model.Firms.Regio;
 import pl.pas.pas.model.Firms.TLK;
+import pl.pas.pas.model.Trains.ExpressTrain;
 import pl.pas.pas.model.Trains.Train;
 import pl.pas.pas.repo.IRepo;
 import pl.pas.pas.repo.TrainRepo;
@@ -52,6 +53,7 @@ public class TrainService {
                 tupdate.setFirm(new Regio());
                 break;
         }
+        Train t = getTrain(tupdate.getTrainId());
         trainRepo.update(tupdate);
 
 //        Optional<Train> t = trainRepo.getById(id);

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Indeks</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Type</td>
+        <td>Active</td>
+        <form  th:action="@{/users}" method="get">
+            <td><input type="submit" value="Back" /></td>
+        </form>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+
+        <td th:text="${user.userId}" />
+        <td th:text="${user.name}" />
+        <td th:text="${user.type}" />
+        <td th:text="${user.isActive}" />
+    </tr>
+
+
+    </tbody>
+</table>
+
+
+
+<div th:if="${!user.tickets.isEmpty()}">
+    <h1>Tickets:</h1>
+    <table>
+        <thead>
+        <tr >
+            <td>Id</td>
+            <td>User</td>
+            <td>Train</td>
+            <td>Start</td>
+            <td>End</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ticket: ${user.tickets}">
+            <td th:text="${ticket.ticketId}" />
+            <td th:text="${ticket.user.name}"/>
+            <td th:text="${ticket.train.name}"/>
+            <td th:text="${ticket.startingDate}" />
+            <td th:if="${ticket.endingDate}" th:text="${ticket.endingDate}"/>
+            <td th:if="${ticket.endingDate == null}">Not ended yet</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

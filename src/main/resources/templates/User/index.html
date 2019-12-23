@@ -22,7 +22,7 @@
     </tr>
     <tr th:each="user: ${users}">
 
-            <td th:text="${user.userId}" />
+        <td ><a th:href="@{users/user/{id}(id=${user.userId})}" ><span th:text="${user.userId}" /></a></td>
             <td th:text="${user.name}" />
             <td th:text="${user.type}" />
             <td th:text="${user.isActive}" />

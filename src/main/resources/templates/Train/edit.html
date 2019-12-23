@@ -5,7 +5,7 @@
     <title>Indeks</title>
 </head>
 <body>
-<form action="#" th:action="@{/trains/edit/{id}(id=${train.trainId})}" th:object="${train}"
+<form action="#" th:action="@{/trains/edit/{id}/{type}(id=${train.trainId},type=${trainType.type})}" th:object="${train}"
       method="post">
     <fieldset>
         <input type="submit" trainId="submitButton" th:value="Save">
@@ -15,6 +15,8 @@
                 <th> Name</th>
                 <th> Firm</th>
                 <th> Number of seats</th>
+                <th th:if="${train instanceof T(pl.pas.pas.model.Trains.ExpressTrain)}">Carriage</th>
+
             </tr>
             </thead>
             <tbody>
@@ -27,6 +29,9 @@
                     </select>
                 </td>
                 <td><input th:field="*{seats}" pattern="[0-9]*" title="There must be number"/></td>
+                <td th:if="${train instanceof T(pl.pas.pas.model.Trains.ExpressTrain)}">
+                    <input th:field="*{carriage}" pattern="[0-9]*" title="There must be number"/>
+                </td>
             </tr>
             </tbody>
         </table>

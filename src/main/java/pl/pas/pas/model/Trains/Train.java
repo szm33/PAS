@@ -3,6 +3,7 @@ package pl.pas.pas.model.Trains;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Range;
 import pl.pas.pas.model.Firms.Firm;
+import pl.pas.pas.model.Tickets.Ticket;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -16,9 +17,19 @@ public class Train {
     private String name;
 //    @Size(min = 1,message = "Minimum 1 seat")
 //    public List<Seat> seats;
-    @Range(min = 1, message = "Invalid number, must be greater than 0")
+    @Range(min = 1, message = "Invalid Seats number, must be greater than 0")
     private int seats;
     private Firm firm;
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    private Ticket ticket;
 
     public Train( UUID id,  String name, int seats, Firm firm) {
         this.trainId = id;

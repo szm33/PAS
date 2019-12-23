@@ -69,4 +69,10 @@ public class UserController {
         userService.updateUser(user);
         return "redirect:/users";
     }
+
+    @GetMapping("/user/{id}")
+    public String info(@PathVariable UUID id, Model model){
+        model.addAttribute("user",userService.getUser(id));
+        return "User/info";
+    }
 }

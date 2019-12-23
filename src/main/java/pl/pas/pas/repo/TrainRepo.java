@@ -4,6 +4,8 @@ import org.springframework.stereotype.Repository;
 import pl.pas.pas.model.Firms.InterCity;
 import pl.pas.pas.model.Firms.Regio;
 import pl.pas.pas.model.Firms.TLK;
+import pl.pas.pas.model.Trains.ExpressTrain;
+import pl.pas.pas.model.Trains.PassengerTrain;
 import pl.pas.pas.model.Trains.Train;
 
 import java.util.ArrayList;
@@ -17,10 +19,10 @@ public class TrainRepo implements IRepo<Train> {
     private List<Train> trains = new ArrayList<>();
 
     public TrainRepo() {
-        trains.add(new Train(UUID.randomUUID(), "pociag1", 10, new Regio()));
-        trains.add(new Train(UUID.randomUUID(), "pociag2", 20, new InterCity()));
-        trains.add(new Train(UUID.randomUUID(), "pociag3", 30, new TLK()));
-        trains.add(new Train(UUID.randomUUID(), "pociag4", 30, new TLK()));
+        trains.add(new ExpressTrain(UUID.randomUUID(), "pociag1", 10, new Regio(),5));
+        trains.add(new PassengerTrain(UUID.randomUUID(), "pociag2", 20, new InterCity()));
+        trains.add(new ExpressTrain(UUID.randomUUID(), "pociag3", 30, new TLK(),2));
+        trains.add(new PassengerTrain(UUID.randomUUID(), "pociag4", 30, new TLK()));
 
     }
 
@@ -47,6 +49,9 @@ public class TrainRepo implements IRepo<Train> {
             train.get().setSeats(t.getSeats());
             train.get().setFirm(t.getFirm());
             train.get().setName(t.getName());
+            if(train.get() instanceof ExpressTrain && t instanceof ExpressTrain){
+                ((ExpressTrain)train.get()).setCarriage(((ExpressTrain) t).getCarriage());
+            }
         }
     }
 }

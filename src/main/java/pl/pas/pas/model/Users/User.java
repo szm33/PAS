@@ -1,8 +1,12 @@
 package pl.pas.pas.model.Users;
 
+import pl.pas.pas.model.Tickets.Ticket;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class User {
@@ -16,6 +20,16 @@ public class User {
 
     private UUID userId;
     private boolean isActive;
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    private List<Ticket> tickets = new ArrayList<>();
 
     public User(String name, String type, UUID idu, boolean isActive) {
         this.name = name;

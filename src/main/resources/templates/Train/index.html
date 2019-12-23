@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <title>Indeks</title>
 </head>
+<body>
 <table>
     <thead>
     <tr>
         <td>Id</td>
         <td>Name</td>
-        <td>Number of Seats</td>
-        <td>Firm</td>
-        <form  th:action="@{/trains/add}" method="get">
-            <td><input type="submit" value="Create train" /></td>
+        <td>Type</td>
+        <form  th:action="@{/trains/add/express}" method="get">
+            <td><input type="submit" value="Create ExpressTrain" /></td>
+        </form>
+        <form  th:action="@{/trains/add/passenger}" method="get">
+            <td><input type="submit" value="Create PassengerTrain" /></td>
         </form>
     </tr>
     </thead>
@@ -21,10 +24,9 @@
         <td colspan="2"> No trains </td>
     </tr>
     <tr th:each="train: ${trains}">
-        <td th:text="${train.trainId}" />
+        <td ><a th:href="@{trains/train/{id}(id=${train.trainId})}" ><span th:text="${train.trainId}" /></a></td>
         <td th:text="${train.name}" />
-        <td th:text="${train.seats}" />
-        <td th:text="${train.firm.name}" />
+        <td th:text="${train.getClass().getSimpleName()}" />
         <form  th:action="@{/trains/edit/{id}(id=${train.trainId})}" method="get">
             <td><input type="submit" value="Edit" /></td>
         </form>
