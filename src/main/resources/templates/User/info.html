@@ -48,7 +48,7 @@
         <tr th:each="ticket: ${user.tickets}">
             <td th:text="${ticket.ticketId}" />
             <td th:text="${ticket.user.name}"/>
-            <td th:text="${ticket.train.name}"/>
+            <td><span th:if="${ticket.train}" th:text="${ticket.train.name}"/></td>
             <td th:text="${ticket.startingDate}" />
             <td th:if="${ticket.endingDate}" th:text="${ticket.endingDate}"/>
             <td th:if="${ticket.endingDate == null}">Not ended yet</td>

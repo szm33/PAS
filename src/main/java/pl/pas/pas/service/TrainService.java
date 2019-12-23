@@ -70,8 +70,9 @@ public class TrainService {
     }
     public void delete(UUID id){
         //ustawienie nulla dla alokacji
-        Optional t = trainRepo.getById(id);
+        Optional<Train> t = trainRepo.getById(id);
         if(t.isPresent()){
+            t.get().getTicket().setTrain(null);
             trainRepo.delete(t.get());
         }
 

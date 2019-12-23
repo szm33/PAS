@@ -94,6 +94,7 @@ public class TicketService {
         Ticket t = getTicket(id);
         if(!t.getStartingDate().isAfter(LocalDate.now())){
             t.setEndingDate( LocalDate.now());
+            if(t.getTrain() != null)
             t.getTrain().setTicket(null);
         }
     }
