@@ -42,5 +42,13 @@
     </tr>
     </tbody>
 </table>
+<form  th:action="@{/tickets/sortUser}" method="get">
+    <input type="text" th:field="${textUser.type}">
+    <input type="submit" value="Sort Users" />
+</form>
+<form  th:action="@{/tickets/sortTrain}" method="get">
+    <input type="text" th:field="${textTrain.type}">
+    <input type="submit" value="Sort Trains" />
+</form>
 </body>
 </html>

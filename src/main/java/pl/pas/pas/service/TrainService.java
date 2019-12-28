@@ -80,15 +80,7 @@ public class TrainService {
     }
 
     public List<Train> sort(String text){
-        List<Train> trains = new ArrayList<>();
-        for (Train t: getTrains()
-             ) {
-            if(t.getName().substring(0,text.length()).equals( text)){
-                trains.add(t);
-            }
-
-        }
-        return trains;
+        return ((TrainRepo)trainRepo).sort(text);
     }
 
 

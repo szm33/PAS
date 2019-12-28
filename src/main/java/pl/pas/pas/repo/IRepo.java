@@ -16,4 +16,5 @@ public interface IRepo<T> {
     void delete(T t);
 
     void update(T t);
+
 }

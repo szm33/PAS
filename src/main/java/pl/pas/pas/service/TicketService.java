@@ -6,6 +6,7 @@ import pl.pas.pas.model.Tickets.Ticket;
 import pl.pas.pas.model.Trains.Train;
 import pl.pas.pas.model.Users.User;
 import pl.pas.pas.repo.IRepo;
+import pl.pas.pas.repo.TicketRepo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -97,5 +98,13 @@ public class TicketService {
             if(t.getTrain() != null)
             t.getTrain().setTicket(null);
         }
+    }
+
+    public List<Ticket>sortUsers(String text){
+        return ((TicketRepo)ticketRepo).sortUser(text);
+    }
+
+    public List<Ticket>sortTrains(String text){
+        return ((TicketRepo)ticketRepo).sortTrain(text);
     }
 }

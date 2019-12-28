@@ -27,7 +27,9 @@ public class TrainRepo implements IRepo<Train> {
     }
 
     public void add(Train t) {
-        trains.add(t);
+        synchronized (this){
+            trains.add(t);
+        }
         //trains.add(new Train(UUID.randomUUID(),name));
     }
 
@@ -40,19 +42,37 @@ public class TrainRepo implements IRepo<Train> {
     }
 
     public void delete(Train t) {
-        trains.remove(t);
+       synchronized (this){
+           trains.remove(t);
+       }
     }
 
     public void update(Train t) {
         Optional<Train> train = getById(t.getTrainId());
         if (train.isPresent()) {
-            train.get().setSeats(t.getSeats());
-            train.get().setFirm(t.getFirm());
-            train.get().setName(t.getName());
-            if(train.get() instanceof ExpressTrain && t instanceof ExpressTrain){
-                ((ExpressTrain)train.get()).setCarriage(((ExpressTrain) t).getCarriage());
+            synchronized (this) {
+                train.get().setSeats(t.getSeats());
+                train.get().setFirm(t.getFirm());
+                train.get().setName(t.getName());
+                if (train.get() instanceof ExpressTrain && t instanceof ExpressTrain) {
+                    ((ExpressTrain) train.get()).setCarriage(((ExpressTrain) t).getCarriage());
+                }
             }
         }
+    }
+
+    public List<Train> sort(String text){
+        List<Train> sortTrains = new ArrayList<>();
+        for (Train t: trains
+        ) {
+            if (t.getName().length() >= text.length()) {
+                if (t.getName().substring(0, text.length()).equals(text)) {
+                    sortTrains.add(t);
+                }
+            }
+
+        }
+        return sortTrains;
     }
 }
 

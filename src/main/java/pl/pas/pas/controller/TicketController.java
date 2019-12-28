@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.pas.pas.model.Tickets.Ticket;
 import pl.pas.pas.model.Trains.Train;
+import pl.pas.pas.model.Trains.TrainType;
 import pl.pas.pas.model.Users.User;
 import pl.pas.pas.service.TicketService;
 import pl.pas.pas.service.TrainService;
@@ -36,6 +37,8 @@ public class TicketController {
     @GetMapping
     public String showAll(Model model){
         model.addAttribute("tickets",ticketService.getTickets());
+        model.addAttribute("textUser",new TrainType(""));
+        model.addAttribute("textTrain",new TrainType(""));
         return "Ticket/index";
 
     }
@@ -80,5 +83,31 @@ public class TicketController {
     public String delete(@PathVariable UUID id){
         ticketService.deleteTicket(id);
         return "redirect:/tickets";
+    }
+
+    @GetMapping("sortUser")
+    public String sortUser(@ModelAttribute("textUser") TrainType text, Model model){
+        if(text.getType() == ""){
+            model.addAttribute("tickets",ticketService.getTickets());
+        }
+        else{
+            model.addAttribute("tickets",ticketService.sortUsers(text.getType()));
+        }
+        model.addAttribute("textUser",text);
+        model.addAttribute("textTrain",new TrainType(""));
+        return "Ticket/index";
+    }
+
+    @GetMapping("sortTrain")
+    public String sortTrain(@ModelAttribute("textTrain") TrainType text, Model model){
+        if(text.getType() == ""){
+            model.addAttribute("tickets",ticketService.getTickets());
+        }
+        else{
+            model.addAttribute("tickets",ticketService.sortTrains(text.getType()));
+        }
+        model.addAttribute("textTrain",text);
+        model.addAttribute("textUser",new TrainType(""));
+        return "Ticket/index";
     }
 }

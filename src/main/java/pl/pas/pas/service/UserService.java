@@ -7,6 +7,7 @@ import pl.pas.pas.model.Users.Client;
 import pl.pas.pas.model.Users.ResourcesManager;
 import pl.pas.pas.model.Users.User;
 import pl.pas.pas.repo.IRepo;
+import pl.pas.pas.repo.UserRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,14 +90,6 @@ public class UserService {
 //    }
 
     public List<User> sort(String text){
-        List<User> users = new ArrayList<>();
-        for (User u: getUsers()
-        ) {
-            if(u.getName().substring(0,text.length()).equals( text)){
-                users.add(u);
-            }
-
-        }
-        return users;
+        return ((UserRepo)userRepo).sort(text);
     }
 }

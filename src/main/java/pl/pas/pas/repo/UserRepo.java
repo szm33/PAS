@@ -23,7 +23,9 @@ public class UserRepo implements IRepo<User> {
     private List<User> users = new ArrayList<>();
 
     public void add(User u) {
-        users.add(u);
+        synchronized (this) {
+            users.add(u);
+        }
     }
 
     public Optional<User> getById(UUID id) {
@@ -35,14 +37,32 @@ public class UserRepo implements IRepo<User> {
     }
 
     public void delete(User u) {
-        users.remove(u);
+        synchronized (this) {
+            users.remove(u);
+        }
     }
 
     public void update(User u) {
         Optional<User> user = getById(u.getUserId());
         if (user.isPresent()) {
 //            users.set(users.indexOf(user), u);
-            user.get().setName(u.getName());
+            synchronized (this) {
+                user.get().setName(u.getName());
+            }
         }
+    }
+
+    public List<User> sort(String text){
+        List<User> sortUsers = new ArrayList<>();
+        for (User u: users
+        ) {
+            if (u.getName().length() >= text.length()) {
+                if (u.getName().substring(0, text.length()).equals(text)) {
+                    sortUsers.add(u);
+                }
+            }
+
+        }
+        return sortUsers;
     }
 }

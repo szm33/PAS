@@ -36,7 +36,9 @@ public class TicketRepo implements IRepo<Ticket> {
 
 
     public void add(Ticket t) {
-        tickets.add(t);
+        synchronized (this) {
+            tickets.add(t);
+        }
     }
 
     public Optional<Ticket> getById(UUID id) {
@@ -48,14 +50,45 @@ public class TicketRepo implements IRepo<Ticket> {
     }
 
     public void delete(Ticket t) {
-        tickets.remove(t);
+        synchronized (this){
+            tickets.remove(t);
+        }
     }
 
     public void update(Ticket t) {
-        Optional<Ticket> ticket = getById(t.getTicketId());
-        if (ticket.isPresent())
-        {
-            tickets.set(tickets.indexOf(ticket), t);
-        }
+//        Optional<Ticket> ticket = getById(t.getTicketId());
+//        if (ticket.isPresent())
+//        {
+//            tickets.set(tickets.indexOf(ticket), t);
+//        }
     }
+
+    public List<Ticket>sortUser(String text){
+        List<Ticket> sortTickets = new ArrayList<>();
+        for (Ticket t: tickets
+        ) {
+            if (t.getUser().getName().length() >= text.length()) {
+                if (t.getUser().getName().substring(0, text.length()).equals(text)) {
+                    sortTickets.add(t);
+                }
+            }
+
+        }
+        return sortTickets;
+    }
+
+    public List<Ticket>sortTrain(String text){
+        List<Ticket> sortTickets = new ArrayList<>();
+        for (Ticket t: tickets
+        ) {
+            if (t.getTrain().getName().length() >= text.length()) {
+                if (t.getTrain().getName().substring(0, text.length()).equals(text)) {
+                    sortTickets.add(t);
+                }
+            }
+
+        }
+        return sortTickets;
+    }
+
 }
