@@ -89,4 +89,9 @@ public class UserController {
         model.addAttribute("text",text);
         return "User/index";
     }
+
+    @GetMapping("/login")
+    public String login(){
+        return "User/login";
+    }
 }
