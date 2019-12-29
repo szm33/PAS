@@ -25,17 +25,17 @@ public class UserService {
     }
 
     public void addUser(User u){
-        switch(u.getType()){
-            case "Admin":
-                userRepo.add(new Admin(u.getName(),u.getUserId(),u.getIsActive()));
-                break;
-            case "ResourcesManager":
-                userRepo.add(new ResourcesManager(u.getName(),u.getUserId(),u.getIsActive()));
-                break;
-            case "Client":
-                userRepo.add(new Client(u.getName(),u.getUserId(),u.getIsActive()));
-                break;
-        }
+//        switch(u.getType()){
+//            case "Admin":
+//                userRepo.add(new Admin(u.getName(),u.getUserId(),u.getIsActive()));
+//                break;
+//            case "ResourcesManager":
+//                userRepo.add(new ResourcesManager(u.getName(),u.getUserId(),u.getIsActive()));
+//                break;
+//            case "Client":
+//                userRepo.add(new Client(u.getName(),u.getUserId(),u.getIsActive()));
+//                break;
+//        }
     }
 
     public List<User> getUsers(){

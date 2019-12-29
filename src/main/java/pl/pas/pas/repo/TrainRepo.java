@@ -19,10 +19,10 @@ public class TrainRepo implements IRepo<Train> {
     private List<Train> trains = new ArrayList<>();
 
     public TrainRepo() {
-        trains.add(new ExpressTrain(UUID.randomUUID(), "pociag1", 10, new Regio(),5));
-        trains.add(new PassengerTrain(UUID.randomUUID(), "pociag2", 20, new InterCity()));
-        trains.add(new ExpressTrain(UUID.randomUUID(), "pociag3", 30, new TLK(),2));
-        trains.add(new PassengerTrain(UUID.randomUUID(), "pociag4", 30, new TLK()));
+//        trains.add(new ExpressTrain(UUID.randomUUID(), "pociag1", 10, new Regio(),5));
+//        trains.add(new PassengerTrain(UUID.randomUUID(), "pociag2", 20, new InterCity()));
+//        trains.add(new ExpressTrain(UUID.randomUUID(), "pociag3", 30, new TLK(),2));
+//        trains.add(new PassengerTrain(UUID.randomUUID(), "pociag4", 30, new TLK()));
 
     }
 

@@ -11,6 +11,27 @@ import java.util.UUID;
 
 public class User {
 
+
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private String password;
+
     @NotBlank(message = "Name cannot be empty")
     @Pattern(regexp = "[A-z]*", message = "Invalid Name")
     @Size(min = 2, max = 20, message = "Name must have between 2-20 letters")
@@ -31,11 +52,13 @@ public class User {
 
     private List<Ticket> tickets = new ArrayList<>();
 
-    public User(String name, String type, UUID idu, boolean isActive) {
+    public User(String name, String type, UUID idu, boolean isActive, String email, String password) {
         this.name = name;
         this.type = type;
         this.userId = idu;
         this.isActive = isActive;
+        this.email = email;
+        this.password = password;
     }
 
     public User(){
