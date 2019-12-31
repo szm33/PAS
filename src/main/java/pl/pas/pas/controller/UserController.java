@@ -90,8 +90,5 @@ public class UserController {
         return "User/index";
     }
 
-    @GetMapping("/login")
-    public String login(){
-        return "User/login";
-    }
+
 }

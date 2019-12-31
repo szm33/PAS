@@ -9,22 +9,19 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private UserMappingService userMappingService;
 
-
-    public SecurityConfig(UserMappingService userMappingService){
-        this.userMappingService = userMappingService;
+    public SecurityConfiguration(UserMappingService userPrincipalDetailsService) {
+        this.userMappingService = userPrincipalDetailsService;
     }
 
-
-
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -33,11 +30,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/trains").permitAll()
-                .antMatchers("/trains/**").hasRole("ResourcesManager")
-                .antMatchers("/tickets/**").authenticated()
+                .antMatchers("/trains/sort").permitAll()
+                .antMatchers("/trains/train/**").authenticated()
+                .antMatchers("/trains/**").hasAnyRole("ResourcesManager","Admin")
+                .antMatchers("/tickets/**").hasAnyRole("ResourcesManager","Admin")
                 .antMatchers("/users/**").hasRole("Admin")
                 .and()
-                .httpBasic();
+                .formLogin()
+                .loginPage("/login").defaultSuccessUrl("/home").permitAll()
+                .usernameParameter("txtUsername")
+                .passwordParameter("txtPassword")
+                .and()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
+                .and()
+                .rememberMe();
     }
 
     @Bean
@@ -50,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

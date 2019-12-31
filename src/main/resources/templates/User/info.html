@@ -8,6 +8,8 @@
 <table>
     <thead>
     <tr>
+        <td>Email</td>
+        <td>Password</td>
         <td>Id</td>
         <td>Name</td>
         <td>Type</td>
@@ -20,6 +22,8 @@
     <tbody>
     <tr>
 
+        <td th:text="${user.email}" />
+        <td th:text="${user.password}" />
         <td th:text="${user.userId}" />
         <td th:text="${user.name}" />
         <td th:text="${user.type}" />
@@ -36,7 +40,7 @@
     <h1>Tickets:</h1>
     <table>
         <thead>
-        <tr >
+        <tr >>
             <td>Id</td>
             <td>User</td>
             <td>Train</td>

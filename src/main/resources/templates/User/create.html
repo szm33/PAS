@@ -12,12 +12,16 @@
         <table>
             <thead>
             <tr>
+                <th>Email</th>
+                <th>Password</th>
                 <th> Name</th>
                 <th> Type</th>
             </tr>
             </thead>
             <tbody>
             <tr >
+                <td><input th:field="*{email}" /></td>
+                <td><input type="password" th:field="*{password}" /></td>
                 <td><input th:field="*{name}" /></td>
 <!--                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" role="alert" />-->
                 <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />

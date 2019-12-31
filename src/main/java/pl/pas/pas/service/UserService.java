@@ -1,6 +1,7 @@
 package pl.pas.pas.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.pas.pas.model.Users.Admin;
 import pl.pas.pas.model.Users.Client;
@@ -18,24 +19,26 @@ import java.util.UUID;
 public class UserService {
 
     private IRepo userRepo;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(IRepo userRepo) {
+    public UserService(IRepo userRepo, PasswordEncoder passwordEncoder) {
+        this.passwordEncoder =passwordEncoder;
         this.userRepo = userRepo;
     }
 
     public void addUser(User u){
-//        switch(u.getType()){
-//            case "Admin":
-//                userRepo.add(new Admin(u.getName(),u.getUserId(),u.getIsActive()));
-//                break;
-//            case "ResourcesManager":
-//                userRepo.add(new ResourcesManager(u.getName(),u.getUserId(),u.getIsActive()));
-//                break;
-//            case "Client":
-//                userRepo.add(new Client(u.getName(),u.getUserId(),u.getIsActive()));
-//                break;
-//        }
+        switch(u.getType()){
+            case "Admin":
+                userRepo.add(new Admin(u.getName(),u.getUserId(),u.getIsActive(),u.getEmail(),passwordEncoder.encode(u.getPassword())));
+                break;
+            case "ResourcesManager":
+                userRepo.add(new ResourcesManager(u.getName(),u.getUserId(),u.getIsActive(),u.getEmail(),passwordEncoder.encode(u.getPassword())));
+                break;
+            case "Client":
+                userRepo.add(new Client(u.getName(),u.getUserId(),u.getIsActive(),u.getEmail(),passwordEncoder.encode(u.getPassword())));
+                break;
+        }
     }
 
     public List<User> getUsers(){

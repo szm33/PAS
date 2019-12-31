@@ -1,6 +1,7 @@
 package pl.pas.pas.model.Users;
 
 import pl.pas.pas.model.Tickets.Ticket;
+import pl.pas.pas.model.Users.validation.UniqueEmail;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -12,6 +13,11 @@ import java.util.UUID;
 public class User {
 
 
+
+    @NotBlank(message = "Email cannot be empty")
+    //@Pattern(regexp = "^[a-zA-Z0-9.]+@([azA-Z0-9]+[.])*[a-zA-Z]{2,4}$", message = "Invalid email")
+    @Pattern(regexp = "^[a-zA-Z0-9.]+@([a-zA-Z0-9]+[.])+[a-zA-Z]{2,4}$", message = "Invalid email")
+    @UniqueEmail(message = "Email is used")
     private String email;
 
     public String getEmail() {
@@ -30,6 +36,7 @@ public class User {
         this.password = password;
     }
 
+    @NotBlank(message = "Password cannot be blank")
     private String password;
 
     @NotBlank(message = "Name cannot be empty")
