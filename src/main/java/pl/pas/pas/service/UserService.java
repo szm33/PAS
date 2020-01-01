@@ -56,6 +56,16 @@ public class UserService {
 
     }
 
+    public User getUser(String email){
+        Optional<User> u = ((UserRepo)userRepo).getByEmail(email);
+        if(u.isPresent()){
+            return  u.get();
+        }
+        else {
+            return new User();
+        }
+    }
+
     public void changeState(UUID id){
         Optional<User> u = userRepo.getById(id);
         if(u.isPresent()){
@@ -65,6 +75,7 @@ public class UserService {
 
 
     public void updateUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.update(user);
 //        Optional<User> u = userRepo.getById(user.getUserId());
 //        if (u.isPresent()){

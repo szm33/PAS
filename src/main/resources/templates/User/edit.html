@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" >
-<head>
+<head th:replace="Base/head :: head">
     <meta charset="UTF-8">
     <title>Indeks</title>
 </head>
 <body>
+<header th:replace="Base/navbar :: nav"></header>
 <form action="#" th:action="@{/users/edit/{id}(id=${user.userId})}" th:object="${user}"
       method="post">
     <fieldset>
@@ -13,12 +14,16 @@
             <thead>
             <tr>
                 <th> Name</th>
+                <th>Email</th>
+                <th>Password</th>
 <!--                <th> Type</th>-->
             </tr>
             </thead>
             <tbody>
             <tr >
                 <td><input th:field="*{name}" /></td>
+                <td><input th:field="*{email}" /></td>
+                <td><input type="password" th:field="*{password}" /></td>
                 <!--                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" role="alert" />-->
                 <td><li th:each="err : ${#fields.errors('*')}" th:text="${err}" /></td>
 <!--                <td><input th:field="*{type}" /></td>-->

@@ -97,7 +97,7 @@ public class TrainController {
     public String addTrain(@Valid @ModelAttribute("train") ExpressTrain train, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             model.addAttribute("firms",firmService.getFirms());
-            //model.addAttribute("train",train);
+            model.addAttribute("trainType",new TrainType("express"));
             return "Train/create";
         }
         trainService.addTrain(train);
@@ -109,6 +109,7 @@ public class TrainController {
     public String addTrain(@Valid @ModelAttribute("train") PassengerTrain train, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             model.addAttribute("firms",firmService.getFirms());
+            model.addAttribute("trainType",new TrainType("passenger"));
             return "Train/create";
         }
         trainService.addTrain(train);

@@ -107,4 +107,8 @@ public class TicketService {
     public List<Ticket>sortTrains(String text){
         return ((TicketRepo)ticketRepo).sortTrain(text);
     }
+
+    public User getUserByEmail(String email){
+        return userService.getUser(email);
+    }
 }

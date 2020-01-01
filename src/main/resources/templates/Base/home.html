@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="Base/head :: head">
 <body>
 <header th:replace="Base/navbar :: nav"></header>
-<H1>Witaj świrze</H1>
+<H1 sec:>Witaj świrze</H1>
+
+<form sec:authorize="hasRole('ROLE_Client')" th:action="@{/tickets/add}" method="get">
+    <input type="submit" value="Allocate Train" />
+</form>
 
 </body>
 </html>

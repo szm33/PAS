@@ -33,6 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/trains/sort").permitAll()
                 .antMatchers("/trains/train/**").authenticated()
                 .antMatchers("/trains/**").hasAnyRole("ResourcesManager","Admin")
+                .antMatchers("/tickets/add").hasAnyRole("Client","ResourcesManager","Admin")
                 .antMatchers("/tickets/**").hasAnyRole("ResourcesManager","Admin")
                 .antMatchers("/users/**").hasRole("Admin")
                 .and()

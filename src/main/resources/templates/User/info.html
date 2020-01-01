@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" >
-<head>
+<head th:replace="Base/head :: head">
     <meta charset="UTF-8">
     <title>Indeks</title>
 </head>
 <body>
+<header th:replace="Base/navbar :: nav"></header>
 <table>
     <thead>
     <tr>
         <td>Email</td>
-        <td>Password</td>
+<!--        <td>Password</td>-->
         <td>Id</td>
         <td>Name</td>
         <td>Type</td>
@@ -23,7 +24,7 @@
     <tr>
 
         <td th:text="${user.email}" />
-        <td th:text="${user.password}" />
+<!--        <td th:text="${user.password}" />-->
         <td th:text="${user.userId}" />
         <td th:text="${user.name}" />
         <td th:text="${user.type}" />

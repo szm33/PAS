@@ -9,7 +9,7 @@
 <table>
     <thead>
         <tr>
-            <td>Id</td>
+            <td>Eamil</td>
             <td>Name</td>
             <td>Type</td>
             <td>Active</td>
@@ -24,7 +24,7 @@
     </tr>
     <tr th:each="user: ${users}">
 
-        <td ><a th:href="@{users/user/{id}(id=${user.userId})}" ><span th:text="${user.userId}" /></a></td>
+        <td ><a th:href="@{users/user/{id}(id=${user.userId})}" ><span th:text="${user.email}" /></a></td>
             <td th:text="${user.name}" />
             <td th:text="${user.type}" />
             <td th:text="${user.isActive}" />

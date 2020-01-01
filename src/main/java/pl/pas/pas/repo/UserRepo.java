@@ -63,6 +63,8 @@ public class UserRepo implements IRepo<User> {
 //            users.set(users.indexOf(user), u);
             synchronized (this) {
                 user.get().setName(u.getName());
+                user.get().setEmail(u.getEmail());
+                user.get().setPassword(u.getPassword());
             }
         }
     }
