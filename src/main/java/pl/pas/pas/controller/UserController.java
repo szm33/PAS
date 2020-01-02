@@ -1,17 +1,19 @@
 package pl.pas.pas.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import pl.pas.pas.model.Trains.TrainType;
 import pl.pas.pas.model.Users.User;
+import pl.pas.pas.security.ReCaptchaResponse;
 import pl.pas.pas.service.UserService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.UUID;
 
 @RequestMapping("/users")
@@ -24,6 +26,9 @@ public class UserController {
     }
 
     private UserService userService;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
 
     @GetMapping
@@ -40,19 +45,76 @@ public class UserController {
 
     }
     @GetMapping("/add")
-    public String addSite(Model model){
+    public String addSite(Model model, Principal principal){
         model.addAttribute("user",new User());
-        return "User/create";
+        if(principal != null){
+            return "User/create";
+        }
+        return "Base/registration";
 
     }
 
-    @PostMapping("/add")
-    public String addUser(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model){
-        if(bindingResult.hasErrors()){
-            return "User/create";
+    @GetMapping("registration")
+    public String  reg(Model model){
+        model.addAttribute("user",new User());
+        return  "Base/registration";
+    }
+
+    @PostMapping("registration")
+    public String registration( @Valid @ModelAttribute User user, BindingResult bindingResult, Model model, @RequestParam(name = "g-recaptcha-response") String recaptcha){
+        String url="https://www.google.com/recaptcha/api/siteverify";
+        String params = "?secret=6LdXkcsUAAAAANpKqy-xdtpBjiWbj5IWYo4J_74o&response=" + recaptcha;
+        ReCaptchaResponse reCaptchaResponse = restTemplate.exchange(url+params, HttpMethod.POST,null, ReCaptchaResponse.class).getBody();
+
+
+        if(reCaptchaResponse.isSuccess()) {
+            if(bindingResult.hasErrors()) {
+                return "Base/registration";
+            }
+            user.setType("Client");
+            user.setIsActive(false);
+            userService.addUser(user);
+            return "redirect:/home";
         }
-        userService.addUser(user);
-        return "redirect:/users";
+        return "Base/registration";
+    }
+
+    @PostMapping("/add")
+    public String addUser(Principal principal, @Valid @ModelAttribute User user, BindingResult bindingResult, Model model, @RequestParam(name = "g-recaptcha-response") String recaptcha){
+
+//        String url="https://www.google.com/recaptcha/api/siteverify";
+//        String params = "?secret=6LdXkcsUAAAAANpKqy-xdtpBjiWbj5IWYo4J_74o&response=" + recaptcha;
+//        ReCaptchaResponse reCaptchaResponse = restTemplate.exchange(url+params, HttpMethod.POST,null, ReCaptchaResponse.class).getBody();
+//
+//
+//        if(reCaptchaResponse.isSuccess()){
+//            if(principal == null){
+//                if(bindingResult.hasErrors()) {
+//                    return "Base/registration";
+//                }
+//                user.setType("Client");
+//                user.setIsActive(false);
+//                userService.addUser(user);
+//                return "redirect:/home";
+//            }
+//            else{
+                if(bindingResult.hasErrors()){
+                    return "User/create";
+                }
+                userService.addUser(user);
+                return "redirect:/users";
+//            }
+//        }
+//        else{
+//            if(principal == null){
+//                return "Base/registration";
+//            }
+//            else{
+//                return "User/create";
+//            }
+//
+//        }
+
 
     }
 
@@ -90,6 +152,8 @@ public class UserController {
         model.addAttribute("text",text);
         return "User/index";
     }
+
+
 
 
 }

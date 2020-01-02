@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="Base/head :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:replace="Base/navbar :: nav"></header>
+<form action="#" th:action="@{/users/registration}" th:object="${user}"
+      method="post">
+    <fieldset>
+        <input type="submit" trainId="submitButton" th:value="Save">
+        <table>
+            <thead>
+            <tr>
+                <th>Email</th>
+                <th>Password</th>
+                <th> Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr >
+                <td><input th:field="*{email}" /></td>
+                <td><input type="password" th:field="*{password}" /></td>
+                <td><input th:field="*{name}" /></td>
+                <!--                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" role="alert" />-->
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+            </tr>
+            <tr>
+                <div class="g-recaptcha" data-sitekey="6LdXkcsUAAAAABTGOn0-a5F-yFRw13fZx6eBNCT6"></div>
+
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</form>
+</body>
+</html>
