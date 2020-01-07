@@ -6,7 +6,15 @@
 </head>
 <body>
 <header th:replace="Base/navbar :: nav"></header>
+<script>
+    function myFunction() {
+        alert("Train is inaccessible");
+    }
+</script>
+<script th:if="${exception}">myFunction()</script>
+
 <span th:if="${trains.isEmpty() == false && users.isEmpty() == false}">
+
 <form action="#" th:action="@{/tickets/add}" th:object="${ticket}"
       method="post">
     <fieldset>
@@ -43,10 +51,6 @@
 </span>
 <span th:if="${trains.isEmpty() || users.isEmpty()}">
     <h1>No available trains or users </h1>
-    <form action="#" th:action="@{/tickets}"
-          method="get">
-        <input type="submit" value="Back">
-    </form>
 </span>
 </body>
 </html>

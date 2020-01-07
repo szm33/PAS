@@ -80,7 +80,7 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public String addUser(Principal principal, @Valid @ModelAttribute User user, BindingResult bindingResult, Model model, @RequestParam(name = "g-recaptcha-response") String recaptcha){
+    public String addUser(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model){
 
 //        String url="https://www.google.com/recaptcha/api/siteverify";
 //        String params = "?secret=6LdXkcsUAAAAANpKqy-xdtpBjiWbj5IWYo4J_74o&response=" + recaptcha;

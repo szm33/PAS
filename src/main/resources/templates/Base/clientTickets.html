@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" >
+<head th:replace="Base/head :: head">
+    <meta charset="UTF-8">
+    <title>Indeks</title>
+</head>
+<body>
+<header th:replace="Base/navbar :: nav"></header>
+<h1 th:if="${user.tickets.isEmpty()}">You have no tickets</h1>
+<div th:if="${!user.tickets.isEmpty()}">
+    <h1>Tickets:</h1>
+    <table>
+        <thead>
+        <tr >>
+            <td>Id</td>
+            <td>User</td>
+            <td>Train</td>
+            <td>Start</td>
+            <td>End</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ticket: ${user.tickets}">
+            <td th:text="${ticket.ticketId}" />
+            <td th:text="${ticket.user.name}"/>
+            <td><span th:if="${ticket.train}" th:text="${ticket.train.name}"/></td>
+            <td th:text="${ticket.startingDate}" />
+            <td th:if="${ticket.endingDate}" th:text="${ticket.endingDate}"/>
+            <td th:if="${ticket.endingDate == null}">Not ended yet</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

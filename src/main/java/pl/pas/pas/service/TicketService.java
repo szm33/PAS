@@ -28,7 +28,10 @@ public class TicketService {
         this.trainService = trainService;
     }
 
-    public void addTicket(Ticket t){
+    public void addTicket(Ticket t) throws Exception{
+        if(trainService.getTrain(t.getTrain().getTrainId())==null || trainService.getTrain(t.getTrain().getTrainId()).getTicket() != null){
+            throw new Exception("train error");
+        }
         t.setUser(userService.getUser(t.getUser().getUserId()));
         t.setTrain(trainService.getTrain(t.getTrain().getTrainId()));
         t.getUser().getTickets().add(t);

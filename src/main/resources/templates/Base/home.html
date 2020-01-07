@@ -4,10 +4,13 @@
 <head th:replace="Base/head :: head">
 <body>
 <header th:replace="Base/navbar :: nav"></header>
-<H1 >Witaj świrze</H1>
+<H1 >Witaj w wypożyczalni</H1>
 
 <form sec:authorize="hasRole('ROLE_Client')" th:action="@{/tickets/add}" method="get">
     <input type="submit" value="Allocate Train" />
+</form>
+<form sec:authorize="hasRole('ROLE_Client')" th:action="@{/tickets/show}" method="get">
+    <input type="submit" value="Show allocates" />
 </form>
 <!--<form  sec:authorize="isAnonymous()" th:action="@{/users/registration}" method="get">-->
 <!--<input type="submit" value="Registartion" />-->

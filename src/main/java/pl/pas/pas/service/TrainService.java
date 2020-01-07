@@ -39,7 +39,8 @@ public class TrainService {
         if (t.isPresent()){
             return t.get();
         }
-        return new Train();
+        return null;
+        //return new Train();
     }
 
     public void updateTrain( Train tupdate){

@@ -85,7 +85,22 @@ public class TicketController {
         }
         ticket.setTrain(train);
         ticket.setUser(user);
-        ticketService.addTicket(ticket);
+        try {
+            ticketService.addTicket(ticket);
+        }
+        catch (Exception e){
+            model.addAttribute("exception",e);
+            if(authentication.getAuthorities().stream().findFirst().get().equals(new SimpleGrantedAuthority("ROLE_Client"))) {
+                List<User> users = new ArrayList<>();
+                users.add(ticketService.getUserByEmail(authentication.getName()));
+                model.addAttribute("users", users);
+            }
+            else{
+                model.addAttribute("users",ticketService.getAllActiveUser());
+            }
+            model.addAttribute("trains",ticketService.getAllNoAllocatedTrains());
+            return "Ticket/create";
+        }
         if(authentication.getAuthorities().stream().findFirst().get().equals(new SimpleGrantedAuthority("ROLE_Client"))) {
             return "redirect:/home";
         }
@@ -130,5 +145,10 @@ public class TicketController {
         return "Ticket/index";
     }
 
+    @GetMapping("show")
+    public String show(Model model,Authentication authentication){
+        model.addAttribute("user",userService.getUser(authentication.getName()));
+        return "Base/clientTickets";
+    }
 
 }
