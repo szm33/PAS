@@ -5,22 +5,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.pas.pas.model.Firms.Firm;
-import pl.pas.pas.model.Firms.InterCity;
-import pl.pas.pas.model.Firms.Regio;
-import pl.pas.pas.model.Firms.TLK;
 import pl.pas.pas.model.Trains.ExpressTrain;
 import pl.pas.pas.model.Trains.PassengerTrain;
 import pl.pas.pas.model.Trains.Train;
 import pl.pas.pas.model.Trains.TrainType;
-import pl.pas.pas.model.seats.Seat;
-import pl.pas.pas.repo.FirmRepo;
 import pl.pas.pas.service.FirmService;
+import pl.pas.pas.service.TicketService;
 import pl.pas.pas.service.TrainService;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/trains")
@@ -28,12 +21,14 @@ import java.util.UUID;
 public class TrainController {
 
     @Autowired
-    public TrainController(TrainService trainService,FirmService firmService) {
+    public TrainController(TrainService trainService, TicketService ticketService, FirmService firmService) {
         this.trainService = trainService;
+        this.ticketService = ticketService;
         this.firmService = firmService;
     }
 
     private TrainService trainService;
+    private TicketService ticketService;
     private FirmService firmService;
 
     @PostMapping
@@ -146,7 +141,7 @@ public class TrainController {
     }
 
     @PostMapping("/edit/{id}/passenger")
-    public String editPassenger(@PathVariable UUID id, @Valid @ModelAttribute("train") PassengerTrain train, BindingResult bindingResult, Model model){
+    public String editPassenger( UUID id, @Valid @ModelAttribute("train") PassengerTrain train, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             train.setTrainId(id);
             model.addAttribute("train",train);
@@ -162,6 +157,7 @@ public class TrainController {
     @GetMapping("/train/{id}")
     public String info(@PathVariable UUID id, Model model){
         model.addAttribute("train",trainService.getTrain(id));
+        model.addAttribute("ticket", ticketService.getTicket(trainService.getTrain(id).getTicketID()));
         return "Train/info";
     }
 
@@ -186,6 +182,9 @@ public class TrainController {
 
     @GetMapping("/delete/{id}")
     public String deleteTrain(@PathVariable UUID id){
+        if(trainService.getTrain(id).getTicketID() != null){
+            ticketService.getTicket(trainService.getTrain(id).getTicketID()).setTrain(null);
+        }
         trainService.delete(id);
         return "redirect:/trains";
     }

@@ -74,9 +74,10 @@ public class TrainService {
         //ustawienie nulla dla alokacji
         Optional<Train> t = trainRepo.getById(id);
         if(t.isPresent()){
-            if(t.get().getTicket() !=null) {
-                t.get().getTicket().setTrain(null);
-            }
+//            if(t.get().getTicketID() !=null) {
+//                t.get().getTicket().setTrain(null);
+//
+//            }
             trainRepo.delete(t.get());
         }
 

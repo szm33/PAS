@@ -54,6 +54,7 @@ public class TrainRepo implements IRepo<Train> {
                 train.get().setSeats(t.getSeats());
                 train.get().setFirm(t.getFirm());
                 train.get().setName(t.getName());
+                train.get().setTicketID(t.getTicketID());
                 if (train.get() instanceof ExpressTrain && t instanceof ExpressTrain) {
                     ((ExpressTrain) train.get()).setCarriage(((ExpressTrain) t).getCarriage());
                 }

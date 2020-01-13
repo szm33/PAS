@@ -41,6 +41,7 @@ public class DbInit implements CommandLineRunner {
 
         userRepo.add(new Admin("Franek", UUID.randomUUID(), true,"admin", passwordEncoder.encode("admin")));
         userRepo.add(new Client("Kamil", UUID.randomUUID(), true,"client", passwordEncoder.encode("client")));
+        userRepo.add(new Client("Kamil", UUID.randomUUID(), true,"client1", passwordEncoder.encode("client")));
         userRepo.add(new ResourcesManager("Maciek", UUID.randomUUID(), true,"manager",passwordEncoder.encode("manager")));
 
 
@@ -50,9 +51,9 @@ public class DbInit implements CommandLineRunner {
         trainRepo.add(new PassengerTrain(UUID.randomUUID(), "pociag4", 30, new TLK()));
 
         for (int i = 0; i < 3; i++) {
-            ticketRepo.add(new Ticket(UUID.randomUUID(),userRepo.getAll().get(i),trainRepo.getAll().get(i), LocalDate.of(1111,1,1),null));
-            ticketRepo.getAll().get(i).getTrain().setTicket(ticketRepo.getAll().get(i));
-            ticketRepo.getAll().get(i).getUser().getTickets().add(ticketRepo.getAll().get(i));
+//            ticketRepo.add(new Ticket(UUID.randomUUID(),userRepo.getAll().get(i),trainRepo.getAll().get(i), LocalDate.of(1111,1,1),null));
+//            ticketRepo.getAll().get(i).getTrain().setTicket(ticketRepo.getAll().get(i));
+//            ticketRepo.getAll().get(i).getUser().getTickets().add(ticketRepo.getAll().get(i));
         }
     }
 }

@@ -21,15 +21,16 @@ public class Train {
     private int seats;
     private Firm firm;
 
-    public Ticket getTicket() {
-        return ticket;
+    public UUID getTicketID() {
+        return ticketID;
     }
 
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
+    public void setTicketID(UUID ticket) {
+        this.ticketID = ticket;
     }
 
-    private Ticket ticket;
+    //private Ticket ticket;
+    private UUID ticketID;
 
     public Train( UUID id,  String name, int seats, Firm firm) {
         this.trainId = id;

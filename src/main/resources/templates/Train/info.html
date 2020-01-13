@@ -32,7 +32,7 @@
     </tbody>
 </table>
 
-<div th:if="${train.ticket != null}">
+<div th:if="${train.ticketID != null}">
     <h1>Ticket:</h1>
 <table>
     <thead>
@@ -41,16 +41,22 @@
         <td>User</td>
         <td>Train</td>
         <td>Start</td>
-        <td th:if="${train.ticket.endingDate != null}">End</td>
+<!--        <td th:if="${train.ticket.endingDate != null}">End</td>-->
+        <td th:if="${ticket.endingDate != null}">End</td>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td th:text="${train.ticket.ticketId}" />
-        <td th:text="${train.ticket.user.name}"/>
-        <td><span th:if="${train.ticket.train}" th:text="${train.ticket.train.name}"/></td>
-        <td th:text="${train.ticket.startingDate}" />
-        <td th:if="${train.ticket.endingDate}" th:text="${ticket.endingDate}"/>
+<!--        <td th:text="${train.ticket.ticketId}" />-->
+<!--        <td th:text="${train.ticket.user.name}"/>-->
+<!--        <td><span th:if="${train.ticket.train}" th:text="${train.ticket.train.name}"/></td>-->
+<!--        <td th:text="${train.ticket.startingDate}" />-->
+<!--        <td th:if="${train.ticket.endingDate}" th:text="${ticket.endingDate}"/>-->
+        <td th:text="${ticket.ticketId}" />
+        <td th:text="${ticket.user.name}"/>
+        <td><span th:if="${ticket.train}" th:text="${ticket.train.name}"/></td>
+        <td th:text="${ticket.startingDate}" />
+        <td th:if="${ticket.endingDate}" th:text="${ticket.endingDate}"/>
     </tr>
     </tbody>
 </table>
