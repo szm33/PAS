@@ -45,10 +45,10 @@ public class DbInit implements CommandLineRunner {
         userRepo.add(new ResourcesManager("Maciek", UUID.randomUUID(), true,"manager",passwordEncoder.encode("manager")));
 
 
-        trainRepo.add(new ExpressTrain(UUID.randomUUID(), "pociag1", 10, new Regio(),5));
-        trainRepo.add(new PassengerTrain(UUID.randomUUID(), "pociag2", 20, new InterCity()));
-        trainRepo.add(new ExpressTrain(UUID.randomUUID(), "pociag3", 30, new TLK(),2));
-        trainRepo.add(new PassengerTrain(UUID.randomUUID(), "pociag4", 30, new TLK()));
+        trainRepo.add(new ExpressTrain( "pociag1", 10, new Regio(),5));
+        trainRepo.add(new PassengerTrain( "pociag2", 20, new InterCity()));
+        trainRepo.add(new ExpressTrain( "pociag3", 30, new TLK(),2));
+        trainRepo.add(new PassengerTrain( "pociag4", 30, new TLK()));
 
         for (int i = 0; i < 3; i++) {
 //            ticketRepo.add(new Ticket(UUID.randomUUID(),userRepo.getAll().get(i),trainRepo.getAll().get(i), LocalDate.of(1111,1,1),null));

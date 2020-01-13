@@ -55,20 +55,8 @@ public class TrainService {
                 tupdate.setFirm(new Regio());
                 break;
         }
-        Train t = getTrain(tupdate.getTrainId());
         trainRepo.update(tupdate);
 
-//        Optional<Train> t = trainRepo.getById(id);
-//        if (t.isPresent()){
-//            if(tupdate.getName() !="")
-//                t.get().setName(tupdate.getName());
-//            if(tupdate.getSeats() != null && tupdate.getSeats().size() != 0){
-//                t.get().setSeats(tupdate.getSeats());
-//            }
-//            if(tupdate.getFirm() != null)
-//                t.get().setFirm(tupdate.getFirm());
-//            trainRepo.update(id,t.get());
-//        }
     }
     public void delete(UUID id){
         //ustawienie nulla dla alokacji

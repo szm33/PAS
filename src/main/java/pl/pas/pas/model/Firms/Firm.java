@@ -1,5 +1,7 @@
 package pl.pas.pas.model.Firms;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.UUID;
@@ -10,7 +12,7 @@ public class Firm {
     @Pattern(regexp = "(TLK)|(Regio)|(InterCity)", message = "Invalid Name")
     private String name;
 
-    public Firm(String name) {
+    public Firm(@JsonProperty("name") String name) {
         this.firmId = UUID.randomUUID();
         this.name = name;
     }

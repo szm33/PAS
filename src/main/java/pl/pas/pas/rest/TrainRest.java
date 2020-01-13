@@ -3,10 +3,12 @@ package pl.pas.pas.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.pas.pas.model.Trains.Train;
 import pl.pas.pas.service.TrainService;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -22,7 +24,7 @@ public class TrainRest {
         this.trainService = trainService;
     }
 //
-    @GetMapping("")
+    @GetMapping
     public List<Train> getAll(){
         return trainService.getTrains();
     }
@@ -32,13 +34,20 @@ public class TrainRest {
         return trainService.getTrain(id);
     }
 
-    @PostMapping("")
-    public ResponseEntity post(@RequestBody Train train){
+    @PostMapping
+    public ResponseEntity post(@Valid @RequestBody Train train, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
         trainService.addTrain(train);
         return new ResponseEntity(HttpStatus.CREATED);
     }
-    @PutMapping("")
-    public ResponseEntity put(@RequestBody Train train){
+    @PutMapping(path = "{id}")
+    public ResponseEntity put(@PathVariable UUID id,@Valid @RequestBody Train train,BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        train.setTrainId(id);
         trainService.updateTrain(train);
         return new ResponseEntity(HttpStatus.OK);
     }

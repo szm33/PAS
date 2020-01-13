@@ -1,5 +1,6 @@
 package pl.pas.pas.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +43,7 @@ public class TrainController {
 //    }
     @GetMapping
     public String s(Model model){
+
         model.addAttribute("trains",trainService.getTrains());
         model.addAttribute("text",new TrainType(""));
         return "Train/index";
