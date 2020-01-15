@@ -27,8 +27,10 @@ public class TrainRepo implements IRepo<Train> {
     }
 
     public void add(Train t) {
-        synchronized (this){
-            trains.add(t);
+        if(!getById(t.getTrainId()).isPresent()) {
+            synchronized (this) {
+                trains.add(t);
+            }
         }
         //trains.add(new Train(UUID.randomUUID(),name));
     }
